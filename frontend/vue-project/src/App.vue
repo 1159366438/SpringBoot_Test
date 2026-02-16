@@ -1,79 +1,63 @@
-<script setup lang="ts"></script>
-
+<!-- src/App.vue -->
 <template>
-  <el-tabs type="border-card" class="demo-tabs">
-    <el-tab-pane>
-      <template #label>
-        <span class="custom-tabs-label">
-          <el-icon><calendar /></el-icon>
-          <span>Route</span>
-        </span>
-      </template>
-      Route
-    </el-tab-pane>
+  <!-- 1. 引入时间+图片组件（全局显示） -->
+  <ClockInComponent />
 
-    <el-tab-pane label="Config">
-      <!-- 输入框 -->
-      <el-input 
-        v-model="inputValue" 
-        style="width: 240px" 
-        placeholder="Please input"
-      />
-     <!-- 可选：显示输入的值，验证双向绑定是否生效 -->
-    <p>你输入的内容：{{ inputValue }}</p>
-    <!-- 发送按钮 -->
-    <el-button 
-      type="primary" 
-      style="margin-left: 10px"
-      @click="sendInputToBackend"
-    >
-      查询
-    </el-button>
-    
-    </el-tab-pane>
-    <el-tab-pane label="Role">Role</el-tab-pane>
-    <el-tab-pane label="Task">Task</el-tab-pane>
-  </el-tabs>
+  <!-- 2. 导航栏（替代原标签页，实现页面跳转） -->
+  <nav class="nav-bar">
+    <router-link to="/route" class="nav-item">Route</router-link>
+    <router-link to="/config" class="nav-item">Config</router-link>
+    <router-link to="/role" class="nav-item">Role</router-link>
+    <router-link to="/task" class="nav-item">Task</router-link>
+  </nav>
+
+  <!-- 3. 路由出口：渲染当前页面组件 -->
+  <router-view />
 </template>
 
 <script lang="ts" setup>
-import { Calendar } from '@element-plus/icons-vue'
-import { ElMessage } from 'element-plus'
-// 必须导入 ref（响应式核心）
-import { ref } from 'vue';
-import axios from 'axios';
-
-// 1. 定义响应式变量，绑定输入框（注意：避免用 input 作为变量名，可能冲突）
-const inputValue = ref('');
-
-// 2. 定义发送请求的方法
-const sendInputToBackend = async () => {
-  
-  // 先校验输入内容（非空校验）
-  if (!inputValue.value.trim()) {
-    ElMessage.warning('请输入内容后再发送！');
-    return;
-  }
-
-    const response = await axios.get('/api/input/send', {
-      params: { content: inputValue.value } // 关键：params 传参
-    });
-};
-
+// 导入时间组件
+import ClockInComponent from './components/ClockInComponent.vue';
 </script>
 
-<style>
-.demo-tabs > .el-tabs__content {
-  padding: 32px;
-  color: #6b778c;
-  font-size: 32px;
-  font-weight: 600;
+<style scoped>
+/* 导航栏样式 */
+.nav-bar {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  right: 0;
+  background: #fff;
+  padding: 10px 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  z-index: 9998;
+  display: flex;
+  gap: 15px;
 }
-.demo-tabs .custom-tabs-label .el-icon {
-  vertical-align: middle;
+
+/* 导航项样式 */
+.nav-item {
+  text-decoration: none;
+  color: #333;
+  padding: 8px 16px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
 }
-.demo-tabs .custom-tabs-label span {
-  vertical-align: middle;
-  margin-left: 4px;
+
+/* 激活的导航项样式 */
+.nav-item.router-link-active {
+  background-color: #409eff;
+  color: #fff;
+}
+
+/* 全局样式 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f9f9f9;
 }
 </style>
