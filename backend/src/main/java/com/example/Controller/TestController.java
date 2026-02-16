@@ -7,8 +7,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/input") // 匹配前端url的前缀 /api/input
 @CrossOrigin // 解决前后端分离的跨域问题（必加，否则前端请求会被拦截）
 @Validated // 开启参数校验
-public class TestController
-{
+public class TestController {
     @GetMapping("/send")
     public  String TEST (@RequestParam(value = "content") String content){
         System.out.println("请求成功");
