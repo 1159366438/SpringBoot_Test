@@ -18,17 +18,8 @@
       <!-- 内容主体：根据标签切换显示不同组件 -->
       <div class="content-body">
         <PunchCard v-if="activeTab === 'today'" />
-        <div v-else-if="activeTab === 'record'" class="record-content">
-          <el-table :data="punchRecord" border style="width: 100%">
-            <el-table-column prop="date" label="日期" />
-            <el-table-column prop="status" label="打卡状态">
-              <template #default="scope">
-                <el-tag v-if="scope.row.status === '已打卡'" type="success">{{ scope.row.status }}</el-tag>
-                <el-tag v-else type="danger">{{ scope.row.status }}</el-tag>
-              </template>
-            </el-table-column>
-          </el-table>
-        </div>
+        <RecordCard v-if="activeTab === 'record'" />
+
         <div v-else class="analysis-content">
           <el-empty description="统计分析功能待开发" />
         </div>
@@ -41,6 +32,7 @@
 import { ref, onMounted } from 'vue'
 import UserInfo from './UserInfo.vue'
 import PunchCard from './PunchCard.vue'
+import RecordCard from './RecordCard.vue'
 import { punchApi } from '../api/punchApi'
 
 // 响应式数据

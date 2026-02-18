@@ -52,7 +52,15 @@ const handlePunch = async () => {
     try {
       const res = await punchApi.getPunchRecord()
       console.log(res)
+      isPunched.value = true
+      const now = new Date()
+      punchTime.value = now.toLocaleTimeString('zh-CN', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      })
       ElMessage.success("打卡成功")
+      
       
     }
     catch (error) {
