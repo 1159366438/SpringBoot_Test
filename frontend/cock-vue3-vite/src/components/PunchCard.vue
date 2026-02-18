@@ -26,6 +26,9 @@
 import { ref, onMounted } from 'vue'
 import { CircleCheck, CircleClose } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
+import { punchApi } from  '../api/punchApi.ts'
+import { lo } from 'element-plus/es/locales.mjs'
+
 
 // 响应式数据
 const todayDate = ref('')
@@ -44,18 +47,20 @@ const formatTodayDate = () => {
 }
 
 // 打卡操作
-const handlePunch = () => {
-  // 模拟打卡接口请求
-  setTimeout(() => {
-    isPunched.value = true
-    const now = new Date()
-    punchTime.value = now.toLocaleTimeString('zh-CN', {
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit'
-    })
-    ElMessage.success('打卡成功！')
-  }, 500)
+const handlePunch = async () => {
+    // 调用封装的记录接口
+    try {
+      const res = await punchApi.getPunchRecord()
+      console.log(res)
+      ElMessage.success("打卡成功")
+      
+    }
+    catch (error) {
+    // 统一捕获错误
+    ElMessage.error((error as Error).message || '打卡失败！')
+    console.error('打卡接口异常：', error)
+  }
+
 }
 
 // 初始化

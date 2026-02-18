@@ -16,7 +16,7 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 }
 
 // Axios 配置
-axios.defaults.baseURL = '/api'
+//axios.defaults.baseURL = '/api'
 app.config.globalProperties.$axios = axios
 
 app.use(ElementPlus)

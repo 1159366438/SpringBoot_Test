@@ -1,5 +1,6 @@
 import axios from 'axios'
 
+
 // 打卡相关接口封装
 export const punchApi = {
   // 获取用户信息（模拟接口）
@@ -18,9 +19,11 @@ export const punchApi = {
     return axios.get('/api/punch/record')
       .then(res => res.data)
       .catch(err => {
+        console.log(21312)
         console.error('获取打卡记录失败：', err)
         // 模拟数据
         return { code: 200, data: [{ date: '2026-02-18', status: '已打卡' }, { date: '2026-02-17', status: '未打卡' }] }
       })
   }
 }
+
