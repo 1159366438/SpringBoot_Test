@@ -7,14 +7,18 @@ Learn more about the recommended Project Setup and IDE Support in the [Vue Docs 
 # 员工打卡项目
 # 前后端分离
 # 前段暂定技术
-    axios        : 1.13.5,
-    element-plus : 2.13.2,
-    vue          : 3.5.25,
-    vue-router   : 4.6.4
+    Axios        : 1.13.5,
+    Element-plus : 2.13.2,
+    Vue          : 3.5.25,
+    Vue-router   : 4.6.4
 # 后端暂定技术
     Springboot4  : 4.0.2
-    mybatis      : 3.0.5
-    mysql        : 无需手动指定
+    Mybatis      : 3.0.5
+    Mysql        : 无需手动指定
+    Redis        : 暂未添加
+    Docker       : 暂未添加
+    RabbitMQ     : 暂未添加
+    后续可能拆分成微服务SpringCloud
 
 # 下载 Node.js
 https://nodejs.cn/download/
