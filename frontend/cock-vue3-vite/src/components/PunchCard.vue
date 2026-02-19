@@ -1,4 +1,7 @@
 <template>
+      <div class="content-header">
+        <UserInfo />
+      </div>
   <div class="punch-card">
     <div class="punch-header">
       <h2>今日打卡</h2>
@@ -27,7 +30,6 @@ import { ref, onMounted } from 'vue'
 import { CircleCheck, CircleClose } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
 import { punchApi } from  '../api/punchApi.ts'
-import { lo } from 'element-plus/es/locales.mjs'
 
 
 // 响应式数据
@@ -60,13 +62,11 @@ const handlePunch = async () => {
         second: '2-digit'
       })
       ElMessage.success("打卡成功")
-      
-      
     }
     catch (error) {
     // 统一捕获错误
-    ElMessage.error((error as Error).message || '打卡失败！')
-    console.error('打卡接口异常：', error)
+    ElMessage.error('打卡失败！')
+    console.error('打卡接口异常：', (error as Error).message )
   }
 
 }
@@ -95,7 +95,7 @@ onMounted(() => {
 }
 
 .punch-header h2 {
-  font-size: 24px;
+  font-size: 34px;
   color: #333;
   margin-bottom: 8px;
 }

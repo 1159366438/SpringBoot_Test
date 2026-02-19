@@ -17,12 +17,6 @@ export const punchApi = {
   // 获取打卡记录（模拟接口）
   getPunchRecord: () => {
     return axios.get('/api/punch/record')
-      .then(res => res.data)
-      .catch(err => {
-        console.error('获取打卡记录失败：', err)
-        // 模拟数据
-        return { code: 200, data: [{ date: '2026-02-18', status: '已打卡' }, { date: '2026-02-17', status: '未打卡' }] }
-      })
   }
 }
 
