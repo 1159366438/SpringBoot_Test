@@ -1,7 +1,4 @@
 <template>
-      <div class="content-header">
-        <UserInfo />
-      </div>
   <div class="punch-card">
     <div class="punch-header">
       <h2>今日打卡</h2>
@@ -30,7 +27,6 @@ import { ref, onMounted } from 'vue'
 import { CircleCheck, CircleClose } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
 import { punchApi } from  '../api/punchApi.ts'
-
 
 // 响应式数据
 const todayDate = ref('')
