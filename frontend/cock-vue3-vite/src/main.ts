@@ -8,6 +8,7 @@ import axios from 'axios'
 import router from './router'
 import ElementPlus from 'element-plus' // 导入 Element Plus
 import 'element-plus/dist/index.css' // 导入样式
+import { ElMessage } from 'element-plus' // 导入 ElMessage
 
 const app = createApp(App)
 const pinia = createPinia()
@@ -17,9 +18,9 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)
 }
 
-// Axios 配置
-//axios.defaults.baseURL = '/api'
+// 全局挂载
 app.config.globalProperties.$axios = axios
+app.config.globalProperties.$message = ElMessage
 
 app.use(ElementPlus)
 app.use(router)
