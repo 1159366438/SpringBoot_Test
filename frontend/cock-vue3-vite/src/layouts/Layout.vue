@@ -6,8 +6,8 @@
         <h5>{{ getMenuText('system') }}</h5>
       </div>
       <el-menu
-        active-text-color="#ffd04b"
-        background-color="#545c64"
+        :active-text-color="APP_CONFIG.UI.COLORS.ACTIVE_TEXT"
+        :background-color="APP_CONFIG.UI.COLORS.BACKGROUND_DARK"
         class="el-menu-vertical-demo sidebar-menu"
         :default-active="activeIndex"
         text-color="#fff"
@@ -60,6 +60,7 @@ import { ref, watch, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import UserInfo from '../components/common/UserInfo.vue'
 import { getMenuText, type MenuText} from '../constants/menu';
+import { APP_CONFIG } from '../config/appConfig';
 
 import {
   Document,
@@ -80,16 +81,18 @@ const activeIndex = ref('punch')
 // 新增：当前要传递给UserInfo的菜单文本（初始化显示今日打卡）
 const currentMenuText = ref<MenuText>(getMenuText('today'));
 
-// 根据当前路由更新菜单文本和激活项
-const updateMenuTextByRoute = () => {
-  const path = route.path
-  if (path === '/punch') {
-    currentMenuText.value = getMenuText('today')
-    activeIndex.value = 'punch'
-  } else if (path === '/record') {
-    currentMenuText.value = getMenuText('record')
-    activeIndex.value = 'record'
-  }
+// 根据路由路径获取对应的菜单键
+const getMenuKeyByPath = (path: string) => {
+  if (path === '/punch') return 'punch'
+  if (path === '/record') return 'record'
+  return 'punch' // 默认返回打卡页面
+}
+
+// 根据路由路径获取对应的菜单文本
+const getMenuTextByPath = (path: string) => {
+  if (path === '/punch') return getMenuText('today')
+  if (path === '/record') return getMenuText('record')
+  return getMenuText('today') // 默认返回打卡文本
 }
 
 const handleOpen = (_key: string, _keyPath: string[]) => {
@@ -112,14 +115,17 @@ const handleMenuSelect = (key: string) => {
   }
 }
 
-// 监听路由变化，更新菜单文本
-watch(() => route.path, () => {
-  updateMenuTextByRoute()
-})
+// 监听路由变化，同步更新菜单文本和激活项
+watch(() => route.path, (newPath) => {
+  activeIndex.value = getMenuKeyByPath(newPath)
+  currentMenuText.value = getMenuTextByPath(newPath)
+}, { immediate: true })
 
-// 初始化时更新菜单文本
+// 初始化时设置菜单状态
 onMounted(() => {
-  updateMenuTextByRoute()
+  const currentPath = route.path
+  activeIndex.value = getMenuKeyByPath(currentPath)
+  currentMenuText.value = getMenuTextByPath(currentPath)
 })
 </script>
 

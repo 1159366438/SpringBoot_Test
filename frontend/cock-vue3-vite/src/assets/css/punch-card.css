@@ -7,36 +7,36 @@
 }
 
 .punch-header {
-  margin-bottom: 30px;
+  margin-bottom: var(--spacing-element-margin);
   text-align: center;
 }
 
 .punch-header h2 {
-  font-size: 34px;
-  color: #333;
+  font-size: var(--font-size-title);
+  color: var(--color-text-dark);
   margin-bottom: 8px;
 }
 
 .punch-header .date {
-  font-size: 14px;
-  color: #666;
+  font-size: var(--font-size-normal);
+  color: var(--color-text-gray);
 }
 
 .punch-body {
-  width: 400px;
+  width: var(--size-card-width);
 }
 
 .punch-card-item {
   text-align: center;
-  padding: 30px;
+  padding: var(--spacing-element-padding-large);
 }
 
 .punch-status {
-  margin-bottom: 20px;
+  margin-bottom: var(--spacing-element-margin);
 }
 
 .punch-status p {
   margin-top: 10px;
-  font-size: 18px;
-  color: #333;
+  font-size: var(--font-size-extra-large);
+  color: var(--color-text-dark);
 }

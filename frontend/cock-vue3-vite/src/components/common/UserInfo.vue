@@ -21,6 +21,7 @@ import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { useUserStore } from '../../store'
 import { formatDate } from '../../utils'
 import { ElMessage } from 'element-plus'
+import { APP_CONFIG } from '../../config/appConfig'
 
 
 // 接收父组件传递的菜单文本
@@ -65,7 +66,7 @@ onMounted(() => {
   updateTime()
   getUserInfo()
   // 每秒更新时间
-  const timer = setInterval(updateTime, 1000)
+  const timer = setInterval(updateTime, APP_CONFIG.UI.TIMING.AUTO_UPDATE_INTERVAL)
   // 卸载时清除定时器
   onUnmounted(() => clearInterval(timer))
 })

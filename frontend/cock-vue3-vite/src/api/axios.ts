@@ -2,11 +2,12 @@
  * Axios 实例配置
  */
 import axios from 'axios'
+import { APP_CONFIG } from '../config/appConfig'
 
 // 创建 axios 实例
 const service = axios.create({
   baseURL: '/api', // 基础URL
-  timeout: 10000, // 请求超时时间
+  timeout: APP_CONFIG.API.TIMEOUT, // 请求超时时间
   headers: {
     'Content-Type': 'application/json'
   }

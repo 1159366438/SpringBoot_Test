@@ -7,9 +7,9 @@
     <div class="punch-body">
       <el-card class="punch-card-item">
         <div class="punch-status">
-          <el-icon size="48" color="#67C23A" v-if="isPunched"><CircleCheck /></el-icon>
-          <el-icon size="48" color="#F56C6C" v-else><CircleClose /></el-icon>
-          <p>{{ isPunched ? '今日已打卡' : '今日未打卡' }}</p>
+          <el-icon :size="APP_CONFIG.UI.SIZES.ICON_SIZE" :color="APP_CONFIG.UI.COLORS.PRIMARY_SUCCESS" v-if="isPunched"><CircleCheck /></el-icon>
+          <el-icon :size="APP_CONFIG.UI.SIZES.ICON_SIZE" :color="APP_CONFIG.UI.COLORS.PRIMARY_ERROR" v-else><CircleClose /></el-icon>
+          <p>{{ isPunched ? t('punchStatus.punched', '今日已打卡') : t('punchStatus.unpunched', '今日未打卡') }}</p>
         </div>
         <el-button type="primary" size="large" @click="handlePunchIn" v-if="!isPunched">
           立即打卡
@@ -29,6 +29,8 @@ import { usePunchStore, useUserStore } from '../../store'
 import { formatDate } from '../../utils'
 import { PUNCH_CONSTANTS } from '../../constants/punch'
 import { ElMessage } from 'element-plus'
+import { APP_CONFIG } from '../../config/appConfig'
+import { t } from '../../locales'
 
 // 响应式数据
 const todayDate = ref('')
