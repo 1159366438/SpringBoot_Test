@@ -3,7 +3,6 @@ package com.example.controller;
 import com.example.dto.PunchRequest;
 import com.example.dto.PunchResponse;
 import com.example.entity.AttendanceRecord;
-import com.example.entity.User;
 import com.example.service.AttendanceRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 
 @RestController // 标识为REST接口，返回JSON数据
@@ -28,21 +28,16 @@ public class PunchController {
      * <p>
      * 该接口用于获取用户的打卡记录信息
      * </p>
-     * 
-     * @return User对象，表示查询到的用户信息
+     *
+     * @return 打卡记录列表
      * @since 1.0.0
      */
     @GetMapping("/record")
-    public User getPunchRecords() {
+    public List<AttendanceRecord> getPunchRecords() {
 
-        System.out.println("请求成功");
-        // 模拟返回一个User对象
-        User user = new User();
-        user.setId(1);
-        user.setUsername("张三");
-        user.setAge(25);
-        user.setCreateTime(new java.util.Date());
-        return user;
+        System.out.println("获取打卡记录请求成功");
+        // 调用服务层获取打卡记录
+        return attendanceRecordService.queryAll();
     }
 
     /**
