@@ -52,10 +52,10 @@ const handlePunchIn = async () => {
   }
   
   const username = userStore.userInfo.name || '未知用户'
-  
+  const userId = userStore.userInfo.userId || 1
   try {
     // 调用store中的打卡方法（已封装API调用）
-    const success = await punchStore.punchIn(username)
+    const success = await punchStore.punchIn(username, userId)
     
     if (success) {
       ElMessage.success(PUNCH_CONSTANTS.MESSAGES.SUCCESS())

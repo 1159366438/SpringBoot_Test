@@ -11,7 +11,8 @@ export const useUserStore = defineStore('user', {
   state: () => ({
     userInfo: {
       name: '',
-      avatar: ''
+      avatar: '',
+      userId: 1 // 默认用户ID
     } as UserInfo,
     loading: false,
     error: ''
@@ -31,6 +32,7 @@ export const useUserStore = defineStore('user', {
         console.log('获取用户信息接口响应:', res)
         if (res.status === BUSINESS_STATUS.SUCCESS) {
           this.userInfo.name = res.data.username
+          this.userInfo.userId = res.data.id || 1 // 使用后端返回的用户ID，默认1
         } else {
           this.error = t('messages.getUserInfoFailed', '获取用户信息失败')
         }

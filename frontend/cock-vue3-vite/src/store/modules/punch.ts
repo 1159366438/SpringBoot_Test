@@ -34,15 +34,15 @@ export const usePunchStore = defineStore('punch', {
   },
   
   actions: {
-    async punchIn(username: string) {
+    async punchIn(username: string, userId: string | number) {
       this.loading = true
       this.error = ''
       try {
         // 准备打卡数据
         const punchTime = new Date().toISOString()
-        
+        console.log('准备打卡数据:', { username, punchTime, userId }) // 开发调试日志
         // 调用打卡接口
-        const res = await punchApi.punchIn({ username, punchTime })
+        const res = await punchApi.punchIn({ username, punchTime, userId })
         // 开发调试时可以启用日志
         console.log('打卡接口响应:', res)
         if (res.data.code === BUSINESS_STATUS.SUCCESS) {
@@ -69,11 +69,11 @@ export const usePunchStore = defineStore('punch', {
       }
     },
     
-    async fetchPunchRecords(page: number = 1, size: number = 15) {
+    async fetchPunchRecords(userId: string | number = 1, page: number = 1, size: number = 15) {
       this.loading = true
       this.error = ''
       try {
-        const res = await punchApi.getPunchRecords({ page, size })
+        const res = await punchApi.getPunchRecords({ userId, page, size })
         console.log('获取打卡记录响应:', res)
         if (res.status === BUSINESS_STATUS.SUCCESS) {
           // 更新分页数据

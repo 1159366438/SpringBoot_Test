@@ -48,13 +48,14 @@
 
 <script setup lang="ts">
 import { onMounted, computed, onErrorCaptured, ref } from 'vue'
-import { usePunchStore } from '../../store'
+import { usePunchStore, useUserStore } from '../../store'
 import { t } from '../../locales'
 import { formatDate } from '../../utils'
 import type { PunchRecord } from '../../types'
 
 // Store
 const punchStore = usePunchStore()
+const userStore = useUserStore()
 
 // Labels
 const dateLabel = computed(() => t('record.date', 'Date'))
@@ -130,7 +131,12 @@ const handleCurrentChange = async (page: number) => {
 // 加载打卡记录
 const loadPunchRecords = async (page: number, size: number) => {
   try {
-    await punchStore.fetchPunchRecords(page, size)
+    // 确保用户信息已加载
+    if (!userStore.userInfo.name) {
+      await userStore.fetchUserInfo()
+    }
+    const userId = userStore.userInfo.userId || 1
+    await punchStore.fetchPunchRecords(userId, page, size)
   } catch (err) {
     console.error('获取打卡记录失败:', err)
   }
@@ -138,6 +144,10 @@ const loadPunchRecords = async (page: number, size: number) => {
 
 // Lifecycle
 onMounted(async () => {
+  // 确保用户信息已加载
+  if (!userStore.userInfo.name) {
+    await userStore.fetchUserInfo()
+  }
   await loadPunchRecords(currentPageRef.value, pageSizeRef.value)
 })
 

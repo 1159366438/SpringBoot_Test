@@ -6,4 +6,5 @@
 export interface UserInfo {
   name: string // 用户名
   avatar: string // 用户头像URL
+  userId: string | number // 用户ID
 }
