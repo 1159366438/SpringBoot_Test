@@ -18,7 +18,7 @@
 ### 后端技术
 - **Spring Boot 4** [![Version](https://img.shields.io/badge/version-4.0.2-blue)](#) - 用于快速构建基于 Spring 的应用程序
 - **MyBatis** [![Version](https://img.shields.io/badge/version-3.0.5-blue)](#) - 持久层框架，简化数据库操作
-- **MySQL Connector/J** [![Status](https://img.shields.io/badge/status-版本由SpringBoot自动管理-blue)](#) - MySQL 数据库连接驱动
+- **MySQL Connector** [![Status](https://img.shields.io/badge/status-版本由SpringBoot自动管理-blue)](#) - MySQL 数据库连接驱动
 - **Java JDK** [![Version](https://img.shields.io/badge/version-17-blue)](#) - Java 开发工具包
 
 ## 项目特点
