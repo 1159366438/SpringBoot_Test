@@ -5,7 +5,7 @@ import { defineStore } from 'pinia'
 import { userApi } from '../../api/userApi'
 import type { UserInfo } from '../../types'
 import { USER_CONSTANTS } from '../../constants/user'
-import { BUSINESS_STATUS } from '../../constants/api'
+import { STATUS_CODES } from '../../constants/statusCodes'
 import { BOOLEAN_CONSTANTS } from '../../constants/booleans'
 import { MESSAGE_CONSTANTS } from '../../constants/messages'
 import { STORE_NAMES } from '../../constants/storeNames'
@@ -34,7 +34,7 @@ export const useUserStore = defineStore(STORE_NAMES.USER, {
         const res = await userApi.getUserInfo()
         // 开发调试时可以启用日志
         console.log('获取用户信息接口响应:', res)
-        if (res.status === BUSINESS_STATUS.SUCCESS) {
+        if (res.status === STATUS_CODES.BUSINESS.SUCCESS) {
           this.userInfo.name = res.data.username
           this.userInfo.userId = res.data.id || USER_CONSTANTS.DEFAULT_VALUES.USER_ID // 使用后端返回的用户ID，默认1
         } else {

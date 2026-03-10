@@ -5,7 +5,7 @@ import { defineStore } from 'pinia'
 import { punchApi } from '../../api/punchApi'
 import type { PunchRecord } from '../../types'
 import { PUNCH_CONSTANTS } from '../../constants/punch'
-import { BUSINESS_STATUS } from '../../constants/api'
+import { STATUS_CODES } from '../../constants/statusCodes'
 import { TABLE_CONSTANTS } from '../../constants/table'
 import { BOOLEAN_CONSTANTS } from '../../constants/booleans'
 import { PUNCH_STORE_CONSTANTS } from '../../constants/punchStore'
@@ -49,7 +49,7 @@ export const usePunchStore = defineStore(STORE_NAMES.PUNCH, {
         const res = await punchApi.punchIn({ username, punchTime, userId })
         // 开发调试时可以启用日志
         console.log('打卡接口响应:', res)
-        if (res.data.code === BUSINESS_STATUS.SUCCESS) {
+        if (res.data.code === STATUS_CODES.BUSINESS.SUCCESS) {
           // 打卡成功后更新本地状态
           this.isPunched = BOOLEAN_CONSTANTS.TRUE
           const now = new Date()
@@ -79,7 +79,7 @@ export const usePunchStore = defineStore(STORE_NAMES.PUNCH, {
       try {
         const res = await punchApi.getPunchRecords({ userId, page, size })
         console.log('获取打卡记录响应:', res)
-        if (res.status === BUSINESS_STATUS.SUCCESS) {
+        if (res.status === STATUS_CODES.BUSINESS.SUCCESS) {
           // 更新分页数据
           this.pagination = {
             records: res.data.records || [],
