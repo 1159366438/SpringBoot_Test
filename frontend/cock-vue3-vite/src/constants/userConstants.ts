@@ -1,7 +1,9 @@
 /**
  * 用户相关常量
- * 管理用户模块中使用的各种常量值
+ * 管理用户功能中使用的各种常量值，包括基本用户信息、验证规则、存储键名和界面文本
  */
+
+import { t } from '../locales'
 
 export const USER_CONSTANTS = {
   // 默认用户值
@@ -24,5 +26,12 @@ export const USER_CONSTANTS = {
     IS_LOGGED_IN: 'isLoggedIn',
     AUTH_TOKEN: 'authToken',
     REMEMBERED_USERNAME: 'rememberedUsername',
+  }
+}
+
+export const USER_INFO_CONSTANTS = {
+  // 按钮文本
+  BUTTONS: {
+    LOGOUT: () => t('buttons.logout', '退出')
   }
 }

@@ -4,11 +4,10 @@
 import { defineStore } from 'pinia'
 import { punchApi } from '../../api/punchApi'
 import type { PunchRecord } from '../../types'
-import { PUNCH_CONSTANTS } from '../../constants/punch'
+import { PUNCH_CONSTANTS, PUNCH_STORE_CONSTANTS } from '../../constants/punchConstants'
 import { STATUS_CODES } from '../../constants/statusCodes'
 import { TABLE_CONSTANTS } from '../../constants/table'
 import { BOOLEAN_CONSTANTS } from '../../constants/booleans'
-import { PUNCH_STORE_CONSTANTS } from '../../constants/punchStore'
 import { STORE_NAMES } from '../../constants/storeNames'
 
 

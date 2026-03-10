@@ -25,7 +25,7 @@ import { useUserStore } from '../../store'
 import { formatDate } from '../../utils'
 import { ElMessage } from 'element-plus'
 import { APP_CONFIG } from '../../config/appConfig'
-import { USER_INFO_CONSTANTS } from '../../constants/userInfo'
+import { USER_INFO_CONSTANTS } from '../../constants/userConstants'
 import { EVENT_CONSTANTS } from '../../constants/events'
 
 

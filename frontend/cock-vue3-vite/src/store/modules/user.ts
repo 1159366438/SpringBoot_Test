@@ -4,7 +4,7 @@
 import { defineStore } from 'pinia'
 import { userApi } from '../../api/userApi'
 import type { UserInfo } from '../../types'
-import { USER_CONSTANTS } from '../../constants/user'
+import { USER_CONSTANTS } from '../../constants/userConstants'
 import { STATUS_CODES } from '../../constants/statusCodes'
 import { BOOLEAN_CONSTANTS } from '../../constants/booleans'
 import { MESSAGE_CONSTANTS } from '../../constants/messages'

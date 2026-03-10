@@ -62,7 +62,7 @@ import { ElMessage } from 'element-plus'
 import { MESSAGE_CONSTANTS } from '../constants/messages'
 import { LOGIN_CONSTANTS } from '../constants/login'
 import { ROUTE_CONSTANTS } from '../constants/routeConstants'
-import { USER_CONSTANTS } from '../constants/user'
+import { USER_CONSTANTS } from '../constants/userConstants'
 import { BOOLEAN_CONSTANTS } from '../constants/booleans'
 import { FORM_VALIDATION_CONSTANTS } from '../constants/formValidation'
 // import { APP_CONFIG } from '../config/appConfig'  // 暂时注释掉未使用的导入

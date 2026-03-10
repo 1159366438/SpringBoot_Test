@@ -52,7 +52,7 @@ import { usePunchStore, useUserStore } from '../../store'
 import { formatDate } from '../../utils'
 import type { PunchRecord } from '../../types'
 import { ElMessage } from 'element-plus'
-import { PUNCH_CONSTANTS } from '../../constants/punch'
+import { PUNCH_CONSTANTS } from '../../constants/punchConstants'
 import { RECORD_CARD_CONSTANTS } from '../../constants/recordCard'
 import { TABLE_CONSTANTS } from '../../constants/table'
 

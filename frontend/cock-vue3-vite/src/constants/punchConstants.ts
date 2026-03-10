@@ -1,9 +1,9 @@
 /**
  * 打卡相关常量
+ * 管理打卡功能中使用的各种常量值，包括消息、状态、卡片和存储相关常量
  */
 import { t } from '../locales'
 
-// 打卡相关常量
 export const PUNCH_CONSTANTS = {
   // 打卡消息
   MESSAGES: {
@@ -27,14 +27,56 @@ export const PUNCH_CONSTANTS = {
     SUCCESS: () => t('punchStatus.success', '正常'),
     LATE: () => t('punchStatus.late', '迟到'),
     ABSENT: () => t('punchStatus.absent', '缺勤')
+  }
+}
+
+export const PUNCH_CARD_CONSTANTS = {
+  // 文本内容
+  TEXTS: {
+    TODAY: () => t('menu.today', '今日打卡'),
+    PUNCH_NOW: () => t('buttons.punchNow', '立即打卡'),
+    ALREADY_PUNCHED: () => t('buttons.alreadyPunched', '已打卡'),
+  },
+
+  // 打卡状态文本
+  STATUS: {
+    PUNCHED: () => t('punchStatus.punched', '今日已打卡'),
+    UNPUNCHED: () => t('punchStatus.unpunched', '今日未打卡'),
+  },
+
+  // 消息文本
+  MESSAGES: {
+    UNKNOWN_USER: () => t('messages.unknownUser', '未知用户'),
+  }
+}
+
+export const PUNCH_STORE_CONSTANTS = {
+  // 初始状态值
+  INITIAL_STATE: {
+    IS_PUNCHED: false,
+    PUNCHED_TIME: '',
+    LOADING: false,
+    ERROR: '',
   },
   
-  // 打卡时间限制（可选）
-  TIME_LIMITS: {
-    MORNING_START: '08:00',
-    MORNING_END: '09:30',
-    AFTERNOON_START: '17:00',
-    AFTERNOON_END: '18:30'
+  // 分页初始值
+  PAGINATION: {
+    TOTAL: 0,
+    PAGE: 1,
+    PAGES: 0,
+  },
+  
+  // 默认参数值
+  DEFAULT_PARAMS: {
+    USER_ID: 1,
+    PAGE: 1,
+  },
+  
+  // 默认回退值
+  FALLBACK_VALUES: {
+    TOTAL: 0,
+    PAGE: 1,
+    PAGES: 1,
   }
 }
 
