@@ -102,7 +102,7 @@ service.interceptors.response.use(
     // 将标准化的错误对象传递下去
     return Promise.reject(errorInfo)
     }
-  }  
+  }
 )
 
 export default service

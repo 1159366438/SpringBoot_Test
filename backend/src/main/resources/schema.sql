@@ -28,6 +28,6 @@ CREATE TABLE IF NOT EXISTS `punch_record` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- 添加测试数据
-INSERT INTO `user` (`username`, `age`) VALUES ('admin', 25);
-INSERT INTO `user` (`username`, `age`) VALUES ('user1', 30);
-INSERT INTO `user` (`username`, `age`) VALUES ('user2', 28);
+INSERT INTO `user` (`username`, `password`, `age`) VALUES ('admin', '$2a$10$NQVgZc5sQB7FvHMRxJrwkedBqMTMtwL0C2YdytKE.Ur9eyo9ydwYm', 25); -- 密码为 '123456' 的BCrypt哈希值
+INSERT INTO `user` (`username`, `password`, `age`) VALUES ('user1', '$2a$10$NQVgZc5sQB7FvHMRxJrwkedBqMTMtwL0C2YdytKE.Ur9eyo9ydwYm', 30); -- 密码为 '123456' 的BCrypt哈希值
+INSERT INTO `user` (`username`, `password`, `age`) VALUES ('user2', '$2a$10$NQVgZc5sQB7FvHMRxJrwkedBqMTMtwL0C2YdytKE.Ur9eyo9ydwYm', 28); -- 密码为 '123456' 的BCrypt哈希值
