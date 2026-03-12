@@ -91,6 +91,35 @@ npm install
 npm run dev
 ```
 
+### 初始化数据库
+
+```bash
+# 确保已安装并启动 MySQL 服务
+# 创建数据库并导入初始数据
+# 在 MySQL 中执行 backend/src/main/resources/schema.sql 文件
+mysql -u [用户名] -p < backend/src/main/resources/schema.sql
+```
+
+或者手动创建数据库：
+
+```sql
+-- 创建数据库
+CREATE DATABASE IF NOT EXISTS `mydatebase` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- 使用数据库
+USE `mydatebase`;
+
+-- 然后执行 schema.sql 中的表创建语句
+```
+
+### 访问系统
+
+- 前端地址：http://localhost:5173
+- 后端地址：http://localhost:8080
+- 系统登录：使用初始化数据中的账号密码登录
+  - 账号：admin，密码：123456（默认BCrypt加密）
+```
+
 ### 项目结构
 
 ```

@@ -1,83 +1,99 @@
-# Attendance System Development Plan
+# 考勤系统开发计划
 
-## Version Roadmap
+## 版本路线图
 
-| Version | Type | Core Functions | Goals |
-|---------|------|----------------|-------|
-| v1.0 | Beta | Login (fake data), Punch Card, Pagination Query | Validate technical feasibility, collect initial feedback |
-| v1.1 | Beta | Departments and Permissions (RBAC, Multi-table Design) | Introduce user organizational structure, lay foundation for multi-user management |
-| v1.2 | Beta | Punch Rules + Map (Rule Engine, Map API) | Add actual attendance constraints, improve credibility |
-| v1.3 | Beta | Enhanced Queries + Export (Complex Queries, Excel Generation) | Meet manager data export needs |
-| v1.4 | Beta | Performance + Deployment (Redis, Docker) | Optimize performance, simplify deployment |
-| v1.5 | Beta | Mobile Adaptation (Responsive, PWA) | Cover mobile usage scenarios |
-| v2.0 | Official Release | Integrate all above features, thoroughly tested, stable and usable | First official version for promotion and practical use |
+| 版本 | 类型 | 核心功能 | 目标 |
+|------|------|----------|------|
+| v1.0.0 | 内测版 | 登录（模拟数据）、打卡、分页查询 | 验证技术可行性，收集初步反馈 |
+| v1.1.0 | 内测版 | 部门与权限（RBAC、多表设计） | 引入用户组织架构，为多用户管理奠定基础 |
+| v1.2.0 | 内测版 | 打卡规则 + 地图（规则引擎、地图API） | 添加实际考勤约束，提高可信度 |
+| v1.3.0 | 内测版 | 增强查询 + 导出（复杂查询、Excel生成） | 满足管理者数据导出需求 |
+| v1.4.0 | 内测版 | 性能 + 部署（Redis、Docker） | 优化性能，简化部署 |
+| v1.5.0 | 内测版 | 移动适配（响应式、PWA） | 覆盖移动使用场景 |
+| v2.0.0 | 正式版 | 集成以上所有功能，经过充分测试，稳定可用 | 首个正式版本，用于推广和实际使用 |
 
-## Feature Details
+## 功能详情
 
-### v1.0 - Basic Functionality (Beta)
-- User login with mock data
-- Punch card functionality
-- Pagination query for attendance records
-- Basic UI/UX design
-- Core business logic validation
+### v1.0.0 - 基础功能（内测版）
+- 使用模拟数据的用户登录
+- 打卡功能
+- 考勤记录的分页查询
+- 基础UI/UX设计
+- 核心业务逻辑验证
 
-### v1.1 - User Management (Beta)
-- Department management system
-- Role-Based Access Control (RBAC)
-- Multi-table database design
-- User permission hierarchy
-- Admin panel for managing users and departments
+### v1.1.0 - 用户管理（内测版）
+- 部门管理系统
+- 基于角色的访问控制（RBAC）
+- 多表数据库设计
+- 用户权限层级
+- 用于管理用户和部门的管理员面板
 
-### v1.2 - Business Rules (Beta)
-- Configurable punch card rules
-- Integration with map APIs for location verification
-- Rule engine for attendance policies
-- Real-time validation of punch locations
-- Compliance checking mechanisms
+### v1.2.0 - 业务规则（内测版）
+- 可配置的打卡规则
+- 集成地图API进行位置验证
+- 考勤策略的规则引擎
+- 打卡位置的实时验证
+- 合规性检查机制
 
-### v1.3 - Data Management (Beta)
-- Advanced query capabilities
-- Report generation and analytics
-- Excel export functionality
-- Data filtering and sorting options
-- Customizable report formats
+### v1.3.0 - 数据管理（内测版）
+- 高级查询功能
+- 报告生成和分析
+- Excel导出功能
+- 数据过滤和排序选项
+- 可定制的报告格式
 
-### v1.4 - Performance & Deployment (Beta)
-- Redis integration for caching
-- Docker containerization
-- Performance optimization
-- Load balancing considerations
-- Production-ready deployment scripts
+### v1.4.0 - 性能与部署（内测版）
+- Redis集成用于缓存
+- Docker容器化
+- 性能优化
+- 负载均衡考虑
+- 生产环境就绪的部署脚本
 
-### v1.5 - Mobile Support (Beta)
-- Responsive design implementation
-- Progressive Web App (PWA) features
-- Touch-optimized interface
-- Offline functionality
-- Mobile-specific UX improvements
+### v1.5.0 - 移动支持（内测版）
+- 响应式设计实现
+- 渐进式Web应用（PWA）功能
+- 触控优化界面
+- 离线功能
+- 针对移动端的用户体验改进
 
-### v2.0 - Official Release
-- All features integrated and tested
-- Comprehensive documentation
-- Performance benchmarking
-- Security audit
-- Production-ready stability
-- Complete user manual and admin guide
+### v2.0.0 - 正式发布
+- 所有功能集成并测试
+- 全面的文档
+- 性能基准测试
+- 安全审计
+- 生产环境就绪的稳定性
+- 完整的用户手册和管理员指南
 
-## Development Timeline
+## 开发时间线
 
-Each version will undergo:
-- Development phase (3 weeks)
-- Testing phase (1 week)
-- Bug fixing and optimization (1 week)
-- Documentation and release preparation (1 week)
+每个版本将经历：
+- 开发阶段（3周）
+- 测试阶段（1周）
+- Bug修复和优化（1周）
+- 文档编写和发布准备（1周）
 
-Total estimated time for v1.0 to v2.0: ~30 weeks (~7.5 months)
+从v1.0到v2.0的总预估时间：约30周（约7.5个月）
 
-## Quality Assurance
+## 质量保证
 
-- Unit testing for all components
-- Integration testing for feature workflows
-- User acceptance testing for each beta release
-- Performance testing before official release
-- Security testing before official release
+- 所有组件的单元测试
+- 功能工作流程的集成测试
+- 每个内测版本的用户验收测试
+- 正式发布前的性能测试
+- 正式发布前的安全测试
+
+## 风险评估
+
+| 风险 | 影响 | 应对措施 |
+|------|------|----------|
+| 地图API集成复杂 | 可能导致 v1.2 延期 | 提前调研API文档，准备备用方案 |
+| 业余时间不稳定 | 整体进度延期 | 每周制定具体小目标，允许适当缓冲 |
+| 技术难点超出预期 | 特定版本延期 | 预留技术攻关时间，及时调整计划 |
+| 需求变更 | 功能范围扩大或改变 | 严格控制范围，按优先级实施 |
+| 团队协作问题 | 开发效率降低 | 建立清晰沟通机制，定期同步进展 |
+
+## 版本信息
+
+- **文档版本**: v1.0.0-beta
+- **最后更新**: 2026-03-12
+- **作者**: Attendance System 开发团队
