@@ -1,6 +1,8 @@
-# 考勤系统 (Attendance System)
+# 考勤系统 (Attendance System) - v1.0.0 内测版
 
 基于前后端分离架构的现代化考勤管理系统，旨在提供高效的员工打卡和考勤记录管理功能。
+
+当前版本：v1.0.0 内测版 | 发布日期：2026-03-12
 
 ## 技术栈
 
@@ -37,14 +39,22 @@
 - **Prettier** [![Version](https://img.shields.io/badge/version-v3.x-blue)](#) - 代码格式化工具
 - **Git** [![Version](https://img.shields.io/badge/version-v2.x-blue)](#) - 版本控制系统
 
-## 未来规划
+## 版本发展规划
+
+### 当前版本
+- **v1.0.0** - 内测版（当前版本）：基础打卡功能、用户登录、分页查询
+
+### 后续版本规划
+- **v1.1.0** - 内测版：部门与权限管理（RBAC、多表设计）
+- **v1.2.0** - 内测版：打卡规则 + 地图集成（规则引擎、地图API）
+- **v1.3.0** - 内测版：增强查询 + 导出功能（复杂查询、Excel生成）
+- **v1.4.0** - 内测版：性能优化 + 部署优化（Redis、Docker）
+- **v1.5.0** - 内测版：移动适配（响应式、PWA）
+- **v2.0.0** - 正式版：集成所有功能，经过充分测试，稳定可用
+
+## 技术待集成
 
 - **Redis** [![Status](https://img.shields.io/badge/status-待集成-yellow)](#) - 内存数据结构存储，可用作缓存和会话存储
 - **Docker** [![Status](https://img.shields.io/badge/status-待集成-yellow)](#) - 容器化平台，便于应用部署和扩展
 - **RabbitMQ** [![Status](https://img.shields.io/badge/status-待集成-yellow)](#) - 消息队列，支持异步处理和解耦
 - **Spring Cloud** [![Status](https://img.shields.io/badge/status-待集成-yellow)](#) - 微服务架构解决方案
-- 增加更多考勤管理功能
-- 优化用户体验和界面设计
-- 添加数据分析和报表功能
-- 集成通知系统（邮件、短信等）
-- 扩展移动端支持
