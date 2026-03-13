@@ -1,7 +1,7 @@
 # 考勤系统 (Attendance System)
 
 <p align="center">
-  <img src="https://img.shields.io/badge/版本-v1.0.0%20内测版-blue?style=for-the-badge" alt="版本">
+  <img src="https://img.shields.io/badge/版本-v1.0.1--beta-blue?style=for-the-badge" alt="版本">
   <img src="https://img.shields.io/badge/发布日期-2026--03--12-green?style=for-the-badge" alt="发布日期">
   <img src="https://img.shields.io/badge/许可证-MIT-yellow?style=for-the-badge" alt="许可证">
 </p>
@@ -191,7 +191,8 @@ attendance-system/
 
 | 版本 | 类型 | 主要功能 | 预计时间 |
 |------|------|----------|----------|
-| v1.0.0 | 内测版 | 基础打卡、用户登录、分页查询 | ✅ 当前 |
+| v1.0.0 | 内测版 | 基础打卡、用户登录、分页查询 | ✅ 已完成 |
+| v1.0.1-beta | 修复版 | 修复登录认证问题、完善BCrypt密码哈希、优化用户体验 | ✅ 当前 |
 | v1.1.0 | 内测版 | 部门与权限管理（RBAC）、多表设计 | 待定 |
 | v1.2.0 | 内测版 | 打卡规则 + 地图集成（规则引擎、地图API） | 待定 |
 | v1.3.0 | 内测版 | 增强查询 + Excel 导出（复杂查询、报表生成） | 待定 |
