@@ -1,6 +1,7 @@
 package com.example.service.impl;
 
 import com.example.common.ResponseResult;
+import com.example.constants.AppConstants;
 import com.example.dao.UserDao;
 import com.example.entity.User;
 import com.example.service.UserService;
@@ -79,7 +80,7 @@ public class UserServiceImpl implements UserService {
         try {
             // 如果没有提供userId参数，则默认返回用户ID为1的信息（仅为演示）
             // 在实际应用中，这里应该从认证信息中获取当前登录用户的ID
-            Integer targetUserId = (userId != null) ? userId : 1;
+            Integer targetUserId = (userId != null) ? userId : AppConstants.User.DEFAULT_USER_ID;
             
             logger.info("获取用户信息请求，目标用户ID: {}", targetUserId);
             

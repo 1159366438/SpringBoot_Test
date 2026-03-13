@@ -1,6 +1,7 @@
 package com.example.service.impl;
 
 import com.example.common.ResponseResult;
+import com.example.constants.AppConstants;
 import com.example.dao.PunchRecordDao;
 import com.example.entity.PunchRecord;
 import com.example.service.PunchRecordService;
@@ -69,7 +70,7 @@ public class PunchRecordServiceImpl implements PunchRecordService {
 
     @Override
     public List<PunchRecord> queryByPage(int page, int size) {
-        int offset = (page - 1) * size;
+        int offset = (page - AppConstants.Page.DEFAULT_PAGE_NUM) * size;
         return punchRecordDao.queryByPage(offset, size);
     }
 
@@ -85,7 +86,7 @@ public class PunchRecordServiceImpl implements PunchRecordService {
 
     @Override
     public List<PunchRecord> queryByUserIdAndPage(Integer userId, int page, int size) {
-        int offset = (page - 1) * size;
+        int offset = (page - AppConstants.Page.DEFAULT_PAGE_NUM) * size;
         return punchRecordDao.queryByUserIdAndPage(userId, offset, size);
     }
 
@@ -110,8 +111,8 @@ public class PunchRecordServiceImpl implements PunchRecordService {
          PunchRecord punchRecord = new PunchRecord();
          punchRecord.setUserId(userId);
          punchRecord.setCheckInTime(now);
-         punchRecord.setCheckInType(1); // 1-上班打卡
-         punchRecord.setCheckInStatus(1); // 1-正常
+         punchRecord.setCheckInType(AppConstants.Punch.CHECK_IN_TYPE_ON_WORK); // 上班打卡
+         punchRecord.setCheckInStatus(AppConstants.Punch.CHECK_IN_STATUS_NORMAL); // 正常状态
          punchRecord.setCheckInLocation("公司"); // 假设打卡地点为公司
 
          // 保存打卡记录

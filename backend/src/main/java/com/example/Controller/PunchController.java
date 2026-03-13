@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import com.example.common.ResponseResult;
+import com.example.constants.AppConstants;
 import com.example.dto.PunchRequest;
 import com.example.entity.User;
 import com.example.service.PunchRecordService;
@@ -41,8 +42,8 @@ public class PunchController {
     @GetMapping("/record")
     public ResponseResult<Map<String, Object>> getPunchRecords(
             @RequestParam("userId") Integer userId,
-            @RequestParam(defaultValue = "1") int page,
-            @RequestParam(defaultValue = "15") int size) {
+            @RequestParam(defaultValue = "" + AppConstants.Page.DEFAULT_PAGE_NUM) int page,
+            @RequestParam(defaultValue = "" + AppConstants.Page.DEFAULT_PAGE_SIZE) int size) {
 
         logger.info("获取打卡记录请求成功，用户ID: {}, 页码: {}, 每页数量: {}", userId, page, size);
         
