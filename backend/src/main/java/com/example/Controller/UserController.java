@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import com.example.common.ResponseResult;
+import com.example.constants.AppConstants;
 import com.example.dto.LoginRequest;
 import com.example.entity.User;
 import com.example.service.UserService;
@@ -63,18 +64,18 @@ public class UserController {
         try {
             // 验证输入参数
             if (loginRequest.getUsername() == null || loginRequest.getUsername().trim().isEmpty()) {
-                return ResponseResult.error(400, "用户名不能为空");
+                return ResponseResult.error(AppConstants.Error.USERNAME_EMPTY_CODE, AppConstants.Error.USERNAME_EMPTY_MSG);
             }
             
             if (loginRequest.getPassword() == null || loginRequest.getPassword().trim().isEmpty()) {
-                return ResponseResult.error(400, "密码不能为空");
+                return ResponseResult.error(AppConstants.Error.PASSWORD_EMPTY_CODE, AppConstants.Error.PASSWORD_EMPTY_MSG);
             }
             
             // 调用登录业务逻辑
             User user = userService.login(loginRequest.getUsername(), loginRequest.getPassword());
             
             if (user == null) {
-                return ResponseResult.error(401, "用户名或密码错误");
+                return ResponseResult.error(AppConstants.Error.LOGIN_FAILED_CODE, AppConstants.Error.LOGIN_FAILED_MSG);
             }
             
             // 构造响应数据
@@ -85,7 +86,7 @@ public class UserController {
             return ResponseResult.success(responseData);
         } catch (Exception e) {
             logger.error("登录失败", e);
-            return ResponseResult.error(500, "登录失败");
+            return ResponseResult.error(AppConstants.Error.SERVER_ERROR_CODE, AppConstants.Error.SERVER_ERROR_MSG);
         }
     }
     
@@ -118,7 +119,7 @@ public class UserController {
           
           // 暂时只返回成功消息，token功能已注释掉
           
-          return ResponseResult.success("登出成功");
+          return ResponseResult.success(AppConstants.Success.LOGOUT_SUCCESS_MSG);
       }
   
 }

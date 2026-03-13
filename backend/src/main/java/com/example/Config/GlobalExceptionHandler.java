@@ -1,6 +1,7 @@
 package com.example.config;
 
 import com.example.common.ResponseResult;
+import com.example.constants.AppConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -28,7 +29,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseResult<String> handleException(Exception e) {
         logger.error("系统发生异常", e);
-        return ResponseResult.error(500, "系统内部错误");
+        return ResponseResult.error(AppConstants.Error.SERVER_ERROR_CODE, AppConstants.Error.SERVER_ERROR_MSG);
     }
     
     /**
@@ -44,6 +45,6 @@ public class GlobalExceptionHandler {
         });
         
         logger.warn("参数校验失败: {}", errors);
-        return ResponseResult.error(400, "参数校验失败", errors);
+        return ResponseResult.error(AppConstants.Error.VALIDATION_FAILED_CODE, AppConstants.Error.VALIDATION_FAILED_MSG, errors);
     }
 }

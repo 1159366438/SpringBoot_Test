@@ -99,11 +99,11 @@ public class UserServiceImpl implements UserService {
                 return ResponseResult.success(userWithoutPassword);
             } else {
                 logger.warn("用户不存在，用户ID: {}", targetUserId);
-                return ResponseResult.error(404, "用户不存在");
+                return ResponseResult.error(AppConstants.Error.USER_NOT_EXIST_CODE, AppConstants.Error.USER_NOT_EXIST_MSG);
             }
         } catch (Exception e) {
             logger.error("获取用户信息失败", e);
-            return ResponseResult.error(500, "获取用户信息失败");
+            return ResponseResult.error(AppConstants.Error.GET_USER_INFO_FAILED_CODE, AppConstants.Error.GET_USER_INFO_FAILED_MSG);
         }
     }
 }

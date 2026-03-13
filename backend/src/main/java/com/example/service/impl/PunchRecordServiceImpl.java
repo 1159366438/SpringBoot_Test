@@ -97,7 +97,7 @@ public class PunchRecordServiceImpl implements PunchRecordService {
          // 验证用户ID
          if (userId == null) {
              logger.warn("打卡失败：用户ID不能为空");
-             return ResponseResult.error(400, "用户ID不能为空");
+             return ResponseResult.error(AppConstants.Error.USER_ID_EMPTY_CODE, AppConstants.Error.USER_ID_EMPTY_MSG);
          }
 
          // 设置为北京时间
@@ -120,10 +120,10 @@ public class PunchRecordServiceImpl implements PunchRecordService {
 
          if (result > 0) {
              logger.info("打卡成功，用户ID: {}", userId);
-             return ResponseResult.success("打卡成功");
+             return ResponseResult.success(AppConstants.Success.PUNCH_SUCCESS_MSG);
          } else {
              logger.error("打卡失败，用户ID: {}", userId);
-             return ResponseResult.error(500, "打卡失败");
+             return ResponseResult.error(AppConstants.Error.PUNCH_FAILED_CODE, AppConstants.Error.PUNCH_FAILED_MSG);
          }
      }
 
@@ -150,7 +150,7 @@ public class PunchRecordServiceImpl implements PunchRecordService {
              return ResponseResult.success(responseData);
          } catch (Exception e) {
              logger.error("获取打卡记录失败，用户ID: {}", userId, e);
-             return ResponseResult.error(500, "获取打卡记录失败");
+             return ResponseResult.error(AppConstants.Error.GET_PUNCH_RECORDS_FAILED_CODE, AppConstants.Error.GET_PUNCH_RECORDS_FAILED_MSG);
          }
      }
 }

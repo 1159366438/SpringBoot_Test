@@ -69,20 +69,20 @@ public class PunchController {
             // 1. 获取前台传递的用户ID
             Integer userId = punchRequest.getUserId();
             if (userId == null) {
-                return ResponseResult.error(400, "用户ID不能为空");
+                return ResponseResult.error(AppConstants.Error.USER_ID_EMPTY_CODE, AppConstants.Error.USER_ID_EMPTY_MSG);
             }
 
             // 2. 查询用户信息，确保用户存在
             User user = userService.queryById(userId);
             if (user == null) {
-                return ResponseResult.error(404, "用户不存在");
+                return ResponseResult.error(AppConstants.Error.USER_NOT_EXIST_CODE, AppConstants.Error.USER_NOT_EXIST_MSG);
             }
 
             // 3. 委托给服务层处理打卡业务
             return punchRecordService.performPunchIn(userId);
         } catch (Exception e) {
             logger.error("打卡失败", e);
-            return ResponseResult.error(500, "打卡失败");
+            return ResponseResult.error(AppConstants.Error.PUNCH_FAILED_CODE, AppConstants.Error.PUNCH_FAILED_MSG);
         }
     }
 
