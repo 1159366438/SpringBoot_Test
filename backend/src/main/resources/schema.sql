@@ -32,3 +32,7 @@ CREATE TABLE IF NOT EXISTS `punch_record` (
 INSERT INTO `user` (`username`, `password`, `age`) VALUES ('admin', '$2a$10$byZHeNtemB1DFSAPJgGLzuuVLHig9xsUq4fbVaip806VYU1mFO9BG', 25); -- 密码为 '123456' 的BCrypt哈希值
 INSERT INTO `user` (`username`, `password`, `age`) VALUES ('user1', '$2a$10$byZHeNtemB1DFSAPJgGLzuuVLHig9xsUq4fbVaip806VYU1mFO9BG', 30); -- 密码为 '123456' 的BCrypt哈希值
 INSERT INTO `user` (`username`, `password`, `age`) VALUES ('user2', '$2a$10$byZHeNtemB1DFSAPJgGLzuuVLHig9xsUq4fbVaip806VYU1mFO9BG', 28); -- 密码为 '123456' 的BCrypt哈希值
+
+
+ALTER TABLE `user`
+    ADD COLUMN `gender` TINYINT DEFAULT 0 COMMENT '0-未知 1-男 2-女';

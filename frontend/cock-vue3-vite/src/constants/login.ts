@@ -36,9 +36,11 @@ export const LOGIN_CONSTANTS = {
   // 登录验证消息
   VALIDATION_MESSAGES: {
     USERNAME_REQUIRED: () => t('login.usernameRequired', '请输入用户名'),
-    USERNAME_LENGTH: () => t('login.usernameLength', '用户名长度至少3位'),
+    USERNAME_TOO_SHORT: () => t('login.usernameTooShort', '用户名长度至少3位'),
+    USERNAME_TOO_LONG: () => t('login.usernameTooLong', '用户名长度不能超过50位'),
+    USERNAME_LENGTH_RANGE: () => t('login.usernameLengthRange', '用户名长度必须在3-50个字符之间'),
     PASSWORD_REQUIRED: () => t('login.passwordRequired', '请输入密码'),
-    PASSWORD_LENGTH: () => t('login.passwordLength', '密码长度至少6位'),
+    PASSWORD_TOO_SHORT: () => t('login.passwordTooShort', '密码长度至少6位'),
     CONFIRM_PASSWORD_REQUIRED: () => t('login.confirmPasswordRequired', '请确认密码'),
     PASSWORD_MISMATCH: () => t('login.passwordMismatch', '两次输入的密码不一致'),
     AGE_RANGE: () => t('login.ageRange', '年龄应在1-120之间'),

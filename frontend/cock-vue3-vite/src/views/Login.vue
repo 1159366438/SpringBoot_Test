@@ -99,7 +99,7 @@ const validateUsername = (_rule: any, value: any, callback: any) => {
   if (!value) {
     callback(new Error(LOGIN_CONSTANTS.VALIDATION_MESSAGES.USERNAME_REQUIRED()))
   } else if (value.length < 3) {
-    callback(new Error(LOGIN_CONSTANTS.VALIDATION_MESSAGES.USERNAME_LENGTH()))
+    callback(new Error(LOGIN_CONSTANTS.VALIDATION_MESSAGES.USERNAME_TOO_SHORT()))
   } else {
     callback()
   }
@@ -109,7 +109,7 @@ const validatePassword = (_rule: any, value: any, callback: any) => {
   if (!value) {
     callback(new Error(LOGIN_CONSTANTS.VALIDATION_MESSAGES.PASSWORD_REQUIRED()))
   } else if (value.length < 6) {
-    callback(new Error(LOGIN_CONSTANTS.VALIDATION_MESSAGES.PASSWORD_LENGTH()))
+    callback(new Error(LOGIN_CONSTANTS.VALIDATION_MESSAGES.PASSWORD_TOO_SHORT()))
   } else {
     callback()
   }
@@ -118,11 +118,11 @@ const validatePassword = (_rule: any, value: any, callback: any) => {
 const loginRules = reactive({
   username: [
     { validator: validateUsername, trigger: FORM_VALIDATION_CONSTANTS.TRIGGERS.BLUR },
-    { min: 3, message: LOGIN_CONSTANTS.VALIDATION_MESSAGES.USERNAME_LENGTH(), trigger: FORM_VALIDATION_CONSTANTS.TRIGGERS.BLUR }
+    { min: 3, message: LOGIN_CONSTANTS.VALIDATION_MESSAGES.USERNAME_TOO_SHORT(), trigger: FORM_VALIDATION_CONSTANTS.TRIGGERS.BLUR }
   ],
   password: [
     { validator: validatePassword, trigger: FORM_VALIDATION_CONSTANTS.TRIGGERS.BLUR },
-    { min: 6, message: LOGIN_CONSTANTS.VALIDATION_MESSAGES.PASSWORD_LENGTH(), trigger: FORM_VALIDATION_CONSTANTS.TRIGGERS.BLUR }
+    { min: 6, message: LOGIN_CONSTANTS.VALIDATION_MESSAGES.PASSWORD_TOO_SHORT(), trigger: FORM_VALIDATION_CONSTANTS.TRIGGERS.BLUR }
   ]
 })
 

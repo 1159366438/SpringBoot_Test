@@ -58,4 +58,16 @@ export const USER_CONSTANTS = {
       2: '女',
     }
   },
+
+  // 按钮文本
+  BUTTONS: {
+    LOGOUT: () => '退出登录',
+  },
+
+  // 默认值
+  DEFAULT_VALUES: {
+    USER_ID: 0,
+    AVATAR: '',
+    GENDER: 0,
+  },
 };

@@ -143,12 +143,12 @@ export const useUserStore = defineStore(STORE_NAMES.USER, {
       }
     },
     
-    async register(username: string, password: string, confirmPassword: string, age?: number, avatar?: string) {
+    async register(username: string, password: string, confirmPassword: string, age?: number, avatar?: string, gender?: number) {
       this.loading = BOOLEAN_CONSTANTS.TRUE
       this.error = ''
       try {
         // 调用真实的注册API
-        const res = await userApi.register(username, password, confirmPassword, age, avatar)
+        const res = await userApi.register(username, password, confirmPassword, age, avatar, gender)
         
         // 检查响应状态
         if (res.data && res.data.code !== STATUS_CODES.BUSINESS.SUCCESS) {

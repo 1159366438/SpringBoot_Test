@@ -154,7 +154,7 @@ const genderLabel = computed(() => LOGIN_CONSTANTS.TEXTS.GENDER_LABEL())
 const maleLabel = computed(() => LOGIN_CONSTANTS.TEXTS.MALE_LABEL())
 const femaleLabel = computed(() => LOGIN_CONSTANTS.TEXTS.FEMALE_LABEL())
 const unknownLabel = computed(() => LOGIN_CONSTANTS.TEXTS.UNKNOWN_LABEL())
-  const usernamePlaceholder = computed(() => LOGIN_CONSTANTS.TEXTS.USERNAME_PLACEHOLDER())
+const usernamePlaceholder = computed(() => LOGIN_CONSTANTS.TEXTS.USERNAME_PLACEHOLDER())
 const passwordPlaceholder = computed(() => LOGIN_CONSTANTS.TEXTS.PASSWORD_PLACEHOLDER())
 const confirmPasswordPlaceholder = computed(() => LOGIN_CONSTANTS.TEXTS.CONFIRM_PASSWORD_PLACEHOLDER())
 const agePlaceholder = computed(() => LOGIN_CONSTANTS.TEXTS.AGE_PLACEHOLDER())
@@ -172,9 +172,9 @@ const showGenderField = computed(() => LOGIN_CONSTANTS.FEATURE_FLAGS.SHOW_GENDER
 const validateUsername = (_rule: any, value: any, callback: any) => {
   if (!value) {
     callback(new Error(LOGIN_CONSTANTS.VALIDATION_MESSAGES.USERNAME_REQUIRED()))
-  } else if (value.length < 3) {
+  } else if (value.length < USER_CONSTANTS.USERNAME.MIN_LENGTH) {
     callback(new Error(LOGIN_CONSTANTS.VALIDATION_MESSAGES.USERNAME_TOO_SHORT()))
-  } else if (value.length > 50) {
+  } else if (value.length > USER_CONSTANTS.USERNAME.MAX_LENGTH) {
     callback(new Error(LOGIN_CONSTANTS.VALIDATION_MESSAGES.USERNAME_TOO_LONG()))
   } else {
     callback()
@@ -184,7 +184,7 @@ const validateUsername = (_rule: any, value: any, callback: any) => {
 const validatePassword = (_rule: any, value: any, callback: any) => {
   if (!value) {
     callback(new Error(LOGIN_CONSTANTS.VALIDATION_MESSAGES.PASSWORD_REQUIRED()))
-  } else if (value.length < 6) {
+  } else if (value.length < USER_CONSTANTS.PASSWORD.MIN_LENGTH) {
     callback(new Error(LOGIN_CONSTANTS.VALIDATION_MESSAGES.PASSWORD_TOO_SHORT()))
   } else {
     callback()
@@ -214,7 +214,7 @@ const validateGender = (_rule: any, value: any, callback: any) => {
 const registerRules = reactive({
   username: [
     { validator: validateUsername, trigger: FORM_VALIDATION_CONSTANTS.TRIGGERS.BLUR },
-    { min: 3, max: 50, message: LOGIN_CONSTANTS.VALIDATION_MESSAGES.USERNAME_LENGTH(), trigger: FORM_VALIDATION_CONSTANTS.TRIGGERS.CHANGE }
+    { min: USER_CONSTANTS.USERNAME.MIN_LENGTH, max: USER_CONSTANTS.USERNAME.MAX_LENGTH, message: LOGIN_CONSTANTS.VALIDATION_MESSAGES.USERNAME_LENGTH_RANGE(), trigger: FORM_VALIDATION_CONSTANTS.TRIGGERS.CHANGE }
   ],
   password: [
     { validator: validatePassword, trigger: FORM_VALIDATION_CONSTANTS.TRIGGERS.BLUR }
@@ -249,7 +249,8 @@ const handleRegister = async () => {
       registerForm.password, 
       registerForm.confirmPassword,
       registerForm.age,
-      registerForm.avatar
+      registerForm.avatar,
+      registerForm.gender
     )
     
     if (result.success) {

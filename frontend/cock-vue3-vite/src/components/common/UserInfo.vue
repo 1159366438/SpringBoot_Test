@@ -24,7 +24,7 @@ import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { useUserStore } from '../../store'
 import { formatDate } from '../../utils'
 import { APP_CONFIG } from '../../config/appConfig'
-import { USER_INFO_CONSTANTS } from '../../constants/userConstants'
+import { USER_CONSTANTS } from '../../constants/userConstants'
 import { EVENT_CONSTANTS } from '../../constants/appArchitectureConstants'
 import { ElMessage } from 'element-plus'
 import { MESSAGE_CONSTANTS } from '../../constants/messages'
@@ -42,7 +42,7 @@ const props = defineProps({
 const emit = defineEmits([EVENT_CONSTANTS.USER.LOGOUT])
 
 // 计算属性
-const logoutText = computed(() => USER_INFO_CONSTANTS.BUTTONS.LOGOUT())
+const logoutText = computed(() => USER_CONSTANTS.BUTTONS.LOGOUT())
 
 
 

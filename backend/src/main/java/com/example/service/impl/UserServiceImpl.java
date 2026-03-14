@@ -111,6 +111,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResponseResult<User> register(RegisterRequest registerRequest) {
+        logger.info("注册用户请求，用户名: {}, 年龄: {}, 性别: {}",
+                registerRequest.getUsername(), registerRequest.getAge(), registerRequest.getGender());
         // 检查用户名是否已存在
         User existingUser = userDao.queryByUsername(registerRequest.getUsername());
         if (existingUser != null) {

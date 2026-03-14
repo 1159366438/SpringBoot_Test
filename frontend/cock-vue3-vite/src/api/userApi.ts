@@ -18,13 +18,14 @@ export const userApi = {
   },
   
   // 用户注册
-  register: (username: string, password: string, confirmPassword: string, age?: number, avatar?: string) => {
+  register: (username: string, password: string, confirmPassword: string, age?: number, avatar?: string, gender?: number) => {
     return service.post(ROUTE_CONSTANTS.PATHS.API.USER.REGISTER, {
       username,
       password,
       confirmPassword,
       age,
-      avatar
+      avatar,
+      gender
     })
   },
   
