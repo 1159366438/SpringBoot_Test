@@ -1,39 +1,39 @@
-**前端 — cock-vue3-vite**
+# Vue 3 + TypeScript + Vite
 
-- **概述**：基于 Vue 3 + Vite + TypeScript 的轻量前端，使用 Pinia 做状态管理，Element Plus 作为 UI 框架，axios 进行请求。
+This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
 
-- **快速开始**：
+Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
 
-```powershell
-# 进入前端目录
-cd d:\IdeaProjects\attendance-system\frontend\cock-vue3-vite
+# 下载 Node.js
+https://nodejs.cn/download/
+
+# 在管理员权限的 PowerShell 中输入以下命令并回车：
+Set-ExecutionPolicy RemoteSigned
+
+# 检查 Node.js 版本（推荐 18.x/20.x LTS 版本）
+node -v
+# 检查 npm 版本（Node.js 自带，无需单独安装）
+npm -v
+
+# 切换国内 npm 镜像
+npm config set registry https://registry.npmmirror.com/
+
+# 创建项目（my-vue3-vite 是项目名称，可自定义，比如 vue3-demo）
+# npm create vite@latest my-vue3-vite -- --template vue-ts
+
+# 安装 Element Plus 图标库
+# 安装 router
+# 使用 axios
+# 使用 element-plus
+# 使用 pinia
+
+npm install @element-plus/icons-vue vue-router@4 axios element-plus pinia
+
+# 进入项目文件夹（注意替换成你的项目名称）
+# cd my-vue3-vite
+
+# 安装项目依赖（Vite 项目必须执行这一步）
 npm install
-npm run dev       # 启动开发服务器
-npm run build     # 生成生产构建
-npm run preview   # 本地预览构建结果
-```
 
-- **前置条件**：建议使用 Node >= 16.8。如遇依赖问题，可删除 `node_modules` 后重装。
-
-- **项目结构（要点）**：
-	- `src/`：应用源码（入口：`src/main.ts`）。
-	- `src/main.ts`：应用引导（router、pinia、Element Plus 注册）。
-	- `src/App.vue`：根组件（加载 `layouts/Layout.vue`）。
-	- `src/router/`, `src/store/`, `src/pages/`, `src/components/`, `src/api/`：按功能组织。
-	- `assets/`, `public/`：静态资源。
-	- `index.html`, `vite.config.ts`：Vite 入口与配置（见 [vite.config.ts](vite.config.ts#L1)）。
-	- `package.json`：依赖与脚本（见 [package.json](package.json#L1)）。
-	- `package-lock.json`：锁定依赖（见 [package-lock.json](package-lock.json#L1)）。
-
-- **重要说明**：
-	- 我已将 `vite` 从 beta 版本升级为稳定的 `^7.0.0`，并更新了 `package-lock.json`。
-	- 开发服务器已配置将 `/api` 转发到 `http://localhost:8080`（详见 [vite.config.ts](vite.config.ts#L1) 的 proxy 配置）。
-	- 全局 API 地址在 `vite.config.ts` 中通过 `__API_BASE_URL__` 定义。
-
-- **故障排查**：
-	- 若 `npm run dev` 失败，请检查 Node 版本；必要时运行 `npm cache clean --force` 然后重装依赖。
-	- 若需回滚依赖改动，请从 git 恢复 `package.json` 与 `package-lock.json`。
-
----
-
-此文档用于说明前端结构与运行步骤。如需我将 README 翻译为更详尽的部署/贡献指南，我可以继续扩展。
+# 启动项目
+npm run dev
