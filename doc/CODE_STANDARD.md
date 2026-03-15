@@ -1,8 +1,8 @@
 # 考勤系统代码规范文档
 
 <p align="center">
-  <strong>版本：v1.0.0</strong> | 
-  <strong>最后更新：2026-03-13</strong> | 
+  <strong>版本：v1.1.0</strong> | 
+  <strong>最后更新：2026-03-15</strong> | 
   <strong>状态：已生效</strong>
 </p>
 
@@ -22,6 +22,7 @@
   - [3.4 状态管理（Pinia）规范](#34-状态管理pinia规范)
   - [3.5 样式规范](#35-样式规范)
   - [3.6 路由规范](#36-路由规范)
+  - [3.7 避免使用废弃API](#37-避免使用废弃api)
 - [4. 后端规范（Spring Boot + MyBatis）](#4-后端规范spring-boot--mybatis)
   - [4.1 技术栈](#41-技术栈)
   - [4.2 目录结构](#42-目录结构)
@@ -160,6 +161,29 @@ src/
 - 路由文件按模块拆分，使用懒加载。
 - 路由 name 与 path 保持一致（大驼峰）。
 - 嵌套路由合理设计。
+
+### 3.7 避免使用废弃API
+在开发过程中，应避免使用 Element Plus 或其他第三方库的废弃 API，以保障代码的长期可维护性。
+
+#### 常见废弃API示例
+- **问题**：控制台出现类似警告：
+  ```
+  [props] [API] type.text is about to be deprecated in version 3.0.0, please use link instead.
+  ```
+- **原因**：在 Vue 模板中使用了 `<el-button type="text">`，该用法已废弃。
+- **解决方案**：将 `type="text"` 替换为 `link` 属性：
+  ```html
+  <!-- 错误（废弃用法） -->
+  <el-button type="text">退出</el-button>
+
+  <!-- 正确 -->
+  <el-button link>退出</el-button>
+  ```
+
+#### 通用原则
+- 关注官方文档的更新日志（如 Element Plus [CHANGELOG](https://github.com/element-plus/element-plus/releases)）。
+- 若发现新的废弃警告，应在代码中及时替换为推荐写法，并更新此规范。
+- 禁止使用带有 `@deprecated` 标记的 API。
 
 ---
 
@@ -339,4 +363,4 @@ Closes #123
 ---
 
 **规范制定：考勤系统开发团队**  
-**生效日期：2026-03-13**
+**生效日期：2026-03-15**
