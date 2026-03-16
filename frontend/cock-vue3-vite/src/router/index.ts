@@ -3,6 +3,8 @@ import PunchPage from '../pages/home/PunchPage.vue'
 import RecordPage from '../pages/home/RecordPage.vue'
 import LoginPage from '../views/Login.vue'
 import RegisterPage from '../views/Register.vue'
+import OrganizationChartPage from '../views/OrganizationChart.vue'
+import OrganizationDepartmentsPage from '../views/OrganizationDepartments.vue'
 import { APP_CONSTANTS } from '../constants'
 
 const routes = [
@@ -33,6 +35,18 @@ const routes = [
     name: APP_CONSTANTS.ROUTE.NAMES.PAGES.RECORD,
     component: RecordPage,
     meta: { title: APP_CONSTANTS.PAGE_NAMES.RECORD() }
+  },
+  {
+    path: APP_CONSTANTS.ROUTE.PATHS.PAGES.ORGANIZATION_CHART,
+    name: APP_CONSTANTS.ROUTE.NAMES.PAGES.ORGANIZATION_CHART,
+    component: OrganizationChartPage,
+    meta: { title: APP_CONSTANTS.PAGE_NAMES.ORGANIZATION_CHART() }
+  },
+  {
+    path: APP_CONSTANTS.ROUTE.PATHS.PAGES.ORGANIZATION_DEPARTMENTS,
+    name: APP_CONSTANTS.ROUTE.NAMES.PAGES.ORGANIZATION_DEPARTMENTS,
+    component: OrganizationDepartmentsPage,
+    meta: { title: APP_CONSTANTS.PAGE_NAMES.ORGANIZATION_DEPARTMENTS() }
   }
 ]
 

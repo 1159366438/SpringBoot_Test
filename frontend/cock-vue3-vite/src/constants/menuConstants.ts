@@ -6,7 +6,7 @@
 import { t } from '../locales'
 
 // 类型约束：菜单Key类型
-export type MenuKey = 'system' | 'systemName' | 'today' | 'record' | '2' | '3' | '4' | 'navigatorTwo' | 'navigatorThree' | 'navigatorFour';
+export type MenuKey = 'system' | 'attendance' | 'attendancePunch' | 'attendanceRecord' | 'organization' | 'organizationChart' | 'organizationDepartments' | '2' | '3' | '4' | 'navigatorTwo' | 'navigatorThree' | 'navigatorFour';
 
 // 类型约束：菜单文本类型
 export type MenuText = string;
@@ -16,17 +16,20 @@ export const MENU_CONSTANTS = {
   KEYS: {
     // 主要菜单项
     MAIN: {
-      TODAY: 'today',
-      RECORD: 'record',
+      ATTENDANCE_PUNCH: 'attendancePunch',
+      ATTENDANCE_RECORD: 'attendanceRecord',
       SETTINGS: 'settings',
       PROFILE: 'profile',
       HOME: 'home',
       ABOUT: 'about',
       SYSTEM: 'system',
-      SYSTEM_NAME: 'systemName',
+      ATTENDANCE: 'attendance',
       NAVIGATION_TWO: '2',
       NAVIGATION_THREE: '3',
       NAVIGATION_FOUR: '4',
+      ORGANIZATION: 'organization',
+      ORGANIZATION_CHART: 'organizationChart',
+      ORGANIZATION_DEPARTMENTS: 'organizationDepartments',
       NAVIGATOR_TWO: 'navigatorTwo',
       NAVIGATOR_THREE: 'navigatorThree',
       NAVIGATOR_FOUR: 'navigatorFour',
@@ -50,13 +53,16 @@ export const MENU_CONSTANTS = {
   // 菜单项文本
   ITEMS: {
     SYSTEM: () => t('menu.system', '员工内网'),
-    SYSTEM_NAME: () => t('menu.systemName', '考勤系统'),
-    TODAY: () => t('menu.today', '今日打卡'),
-    RECORD: () => t('menu.record', '打卡记录'),
+    ATTENDANCE: () => t('menu.attendance', '考勤'),
+    ATTENDANCE_PUNCH: () => t('menu.attendancePunch', '考勤打卡'),
+    ATTENDANCE_RECORD: () => t('menu.attendanceRecord', '考勤记录'),
     NAVIGATION_TWO: () => t('menu.2', '导航二'),
     NAVIGATION_THREE: () => t('menu.3', '导航三'),
     NAVIGATION_FOUR: () => t('menu.4', '导航四'),
-    NAVIGATOR_TWO: () => t('menu.navigatorTwo', 'Navigator Two'),
+    ORGANIZATION: () => t('menu.organization', '组织管理'),
+    ORGANIZATION_CHART: () => t('menu.organizationChart', '组织架构'),
+    ORGANIZATION_DEPARTMENTS: () => t('menu.organizationDepartments', '部门管理'),
+    NAVIGATOR_TWO: () => t('menu.navigatorTwo', '部门管理'),
     NAVIGATOR_THREE: () => t('menu.navigatorThree', 'Navigator Three'),
     NAVIGATOR_FOUR: () => t('menu.navigatorFour', 'Navigator Four'),
   },
@@ -66,12 +72,15 @@ export const MENU_CONSTANTS = {
     const keyStr = String(key);
     switch (keyStr) {
       case 'system': return MENU_CONSTANTS.ITEMS.SYSTEM();
-      case 'systemName': return MENU_CONSTANTS.ITEMS.SYSTEM_NAME();
-      case 'today': return MENU_CONSTANTS.ITEMS.TODAY();
-      case 'record': return MENU_CONSTANTS.ITEMS.RECORD();
+      case 'attendance': return MENU_CONSTANTS.ITEMS.ATTENDANCE();
+      case 'attendancePunch': return MENU_CONSTANTS.ITEMS.ATTENDANCE_PUNCH();
+      case 'attendanceRecord': return MENU_CONSTANTS.ITEMS.ATTENDANCE_RECORD();
       case '2': return MENU_CONSTANTS.ITEMS.NAVIGATION_TWO();
       case '3': return MENU_CONSTANTS.ITEMS.NAVIGATION_THREE();
       case '4': return MENU_CONSTANTS.ITEMS.NAVIGATION_FOUR();
+      case 'organization': return MENU_CONSTANTS.ITEMS.ORGANIZATION();
+      case 'organizationChart': return MENU_CONSTANTS.ITEMS.ORGANIZATION_CHART();
+      case 'organizationDepartments': return MENU_CONSTANTS.ITEMS.ORGANIZATION_DEPARTMENTS();
       case 'navigatorTwo': return MENU_CONSTANTS.ITEMS.NAVIGATOR_TWO();
       case 'navigatorThree': return MENU_CONSTANTS.ITEMS.NAVIGATOR_THREE();
       case 'navigatorFour': return MENU_CONSTANTS.ITEMS.NAVIGATOR_FOUR();
@@ -96,7 +105,7 @@ export function getMenuText(key: string | number, defaultText: MenuText = '员�
  * @returns 菜单Key数组
  */
 export function getAllMenuKeys(): MenuKey[] {
-  return ['system', 'systemName', 'today', 'record', '2', '3', '4'];
+  return ['system', 'attendance', 'attendancePunch', 'attendanceRecord', '2', '3', '4'];
 }
 
 /**

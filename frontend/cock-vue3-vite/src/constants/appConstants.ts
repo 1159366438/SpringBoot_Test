@@ -154,6 +154,8 @@ export const APP_CONSTANTS = {
         RECORD: '/record',
         USER: '/user',
         SETTING: '/setting',
+        ORGANIZATION_CHART: '/organizationChart',
+        ORGANIZATION_DEPARTMENTS: '/organizationDepartments',
       },
       
       // API 路由
@@ -186,6 +188,8 @@ export const APP_CONSTANTS = {
         RECORD: 'RecordPage',
         USER: 'UserPage',
         SETTING: 'SettingPage',
+        ORGANIZATION_CHART: 'OrganizationChartPage',
+        ORGANIZATION_DEPARTMENTS: 'OrganizationDepartmentsPage',
       },
     },
   },
@@ -295,7 +299,10 @@ export const APP_CONSTANTS = {
     PUNCH: () => t('pageTitles.punch', '打卡页面'),
     RECORD: () => t('pageTitles.record', '打卡记录'),
     USER: () => t('pageTitles.user', '用户中心'),
-    SETTING: () => t('pageTitles.setting', '设置')
+    SETTING: () => t('pageTitles.setting', '设置'),
+    ORGANIZATION: () => t('pageTitles.organization', '组织管理'),
+    ORGANIZATION_CHART: () => t('pageTitles.organizationChart', '组织架构'),
+    ORGANIZATION_DEPARTMENTS: () => t('pageTitles.organizationDepartments', '部门管理')
   },
 
   // 国际化后备文本常量

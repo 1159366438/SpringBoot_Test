@@ -16,16 +16,28 @@
         @close="handleClose"
         @select="handleMenuSelect"
       >
-        <el-sub-menu :index="LAYOUT_CONSTANTS.MENU_INDEXES.SUB_MENU_SYSTEM">
+        <el-sub-menu :index="LAYOUT_CONSTANTS.MENU_INDEXES.ATTENDANCE">
           <template #title>
             <el-icon class="menu-icon"><Location /></el-icon>
-            <span >{{ getMenuText(MENU_KEYS.MAIN.SYSTEM_NAME) }}</span>
+            <span >{{ getMenuText(MENU_KEYS.MAIN.ATTENDANCE) }}</span>
           </template>
-          <el-menu-item :index="LAYOUT_CONSTANTS.MENU_INDEXES.PUNCH">
-            <span>{{ getMenuText(MENU_KEYS.MAIN.TODAY) }}</span>
+          <el-menu-item :index="LAYOUT_CONSTANTS.MENU_INDEXES.ATTENDANCE_PUNCH">
+            <span>{{ getMenuText(MENU_KEYS.MAIN.ATTENDANCE_PUNCH) }}</span>
           </el-menu-item>
-          <el-menu-item :index="LAYOUT_CONSTANTS.MENU_INDEXES.RECORD">
-            <span>{{ getMenuText(MENU_KEYS.MAIN.RECORD) }}</span>
+          <el-menu-item :index="LAYOUT_CONSTANTS.MENU_INDEXES.ATTENDANCE_RECORD">
+            <span>{{ getMenuText(MENU_KEYS.MAIN.ATTENDANCE_RECORD) }}</span>
+          </el-menu-item>
+        </el-sub-menu>
+        <el-sub-menu :index="LAYOUT_CONSTANTS.MENU_INDEXES.ORGANIZATION">
+          <template #title>
+            <el-icon class="menu-icon"><IconMenu /></el-icon>
+            <span >{{ getMenuText(MENU_KEYS.MAIN.ORGANIZATION) }}</span>
+          </template>
+          <el-menu-item :index="LAYOUT_CONSTANTS.MENU_INDEXES.ORGANIZATION_CHART">
+            <span>{{ getMenuText(MENU_KEYS.MAIN.ORGANIZATION_CHART) }}</span>
+          </el-menu-item>
+          <el-menu-item :index="LAYOUT_CONSTANTS.MENU_INDEXES.ORGANIZATION_DEPARTMENTS">
+            <span>{{ getMenuText(MENU_KEYS.MAIN.ORGANIZATION_DEPARTMENTS) }}</span>
           </el-menu-item>
         </el-sub-menu>
         <el-menu-item :index="LAYOUT_CONSTANTS.MENU_INDEXES.NAVIGATION_TWO">
@@ -80,10 +92,10 @@ const userStore = useUserStore()
 const defaultOpenedMenus = ref(LAYOUT_CONSTANTS.MENU_INDEXES.DEFAULT_OPENED)
 
 // 动态激活的菜单项
-const activeIndex = ref(LAYOUT_CONSTANTS.MENU_INDEXES.PUNCH)
+const activeIndex = ref(LAYOUT_CONSTANTS.MENU_INDEXES.ATTENDANCE_PUNCH)
 
 // 新增：当前要传递给UserInfo的菜单文本（初始化显示今日打卡）
-const currentMenuText = ref<MenuText>(getMenuText(MENU_KEYS.MAIN.TODAY));
+const currentMenuText = ref<MenuText>(getMenuText(MENU_KEYS.MAIN.ATTENDANCE_PUNCH));
 
 // 导航项文本
 const navigatorTwoText = computed(() => getMenuText(LAYOUT_CONSTANTS.NAVIGATION.TWO, 'Navigator Two'))
@@ -92,16 +104,20 @@ const navigatorFourText = computed(() => getMenuText(LAYOUT_CONSTANTS.NAVIGATION
 
 // 根据路由路径获取对应的菜单键
 const getMenuKeyByPath = (path: string) => {
-  if (path === APP_CONSTANTS.ROUTE.PATHS.PAGES.PUNCH) return LAYOUT_CONSTANTS.MENU_INDEXES.PUNCH
-  if (path === APP_CONSTANTS.ROUTE.PATHS.PAGES.RECORD) return LAYOUT_CONSTANTS.MENU_INDEXES.RECORD
-  return LAYOUT_CONSTANTS.MENU_INDEXES.PUNCH // 默认返回打卡页面
+  if (path === APP_CONSTANTS.ROUTE.PATHS.PAGES.PUNCH) return LAYOUT_CONSTANTS.MENU_INDEXES.ATTENDANCE_PUNCH
+  if (path === APP_CONSTANTS.ROUTE.PATHS.PAGES.RECORD) return LAYOUT_CONSTANTS.MENU_INDEXES.ATTENDANCE_RECORD
+  if (path === APP_CONSTANTS.ROUTE.PATHS.PAGES.ORGANIZATION_CHART) return LAYOUT_CONSTANTS.MENU_INDEXES.ORGANIZATION_CHART
+  if (path === APP_CONSTANTS.ROUTE.PATHS.PAGES.ORGANIZATION_DEPARTMENTS) return LAYOUT_CONSTANTS.MENU_INDEXES.ORGANIZATION_DEPARTMENTS
+  return LAYOUT_CONSTANTS.MENU_INDEXES.ATTENDANCE_PUNCH // 默认返回打卡页面
 }
 
 // 根据路由路径获取对应的菜单文本
 const getMenuTextByPath = (path: string) => {
-  if (path === APP_CONSTANTS.ROUTE.PATHS.PAGES.PUNCH) return getMenuText(MENU_KEYS.MAIN.TODAY)
-  if (path === APP_CONSTANTS.ROUTE.PATHS.PAGES.RECORD) return getMenuText(MENU_KEYS.MAIN.RECORD)
-  return getMenuText(MENU_KEYS.MAIN.TODAY) // 默认返回打卡文本
+  if (path === APP_CONSTANTS.ROUTE.PATHS.PAGES.PUNCH) return getMenuText(MENU_KEYS.MAIN.ATTENDANCE_PUNCH)
+  if (path === APP_CONSTANTS.ROUTE.PATHS.PAGES.RECORD) return getMenuText(MENU_KEYS.MAIN.ATTENDANCE_RECORD)
+  if (path === APP_CONSTANTS.ROUTE.PATHS.PAGES.ORGANIZATION_CHART) return getMenuText(MENU_KEYS.MAIN.ORGANIZATION_CHART)
+  if (path === APP_CONSTANTS.ROUTE.PATHS.PAGES.ORGANIZATION_DEPARTMENTS) return getMenuText(MENU_KEYS.MAIN.ORGANIZATION_DEPARTMENTS)
+  return getMenuText(MENU_KEYS.MAIN.ATTENDANCE_PUNCH) // 默认返回打卡文本
 }
 
 const handleOpen = (_key: string, _keyPath: string[]) => {
@@ -117,10 +133,14 @@ const handleMenuSelect = (key: string) => {
   // 开发调试时可以启用日志
   // console.log('切换到菜单：', key)
   // 根据菜单key跳转到对应路由
-  if (key === LAYOUT_CONSTANTS.MENU_INDEXES.PUNCH) {
+  if (key === LAYOUT_CONSTANTS.MENU_INDEXES.ATTENDANCE_PUNCH) {
     router.push(APP_CONSTANTS.ROUTE.PATHS.PAGES.PUNCH)
-  } else if (key === LAYOUT_CONSTANTS.MENU_INDEXES.RECORD) {
+  } else if (key === LAYOUT_CONSTANTS.MENU_INDEXES.ATTENDANCE_RECORD) {
     router.push(APP_CONSTANTS.ROUTE.PATHS.PAGES.RECORD)
+  } else if (key === LAYOUT_CONSTANTS.MENU_INDEXES.ORGANIZATION_CHART) {
+    router.push(APP_CONSTANTS.ROUTE.PATHS.PAGES.ORGANIZATION_CHART)
+  } else if (key === LAYOUT_CONSTANTS.MENU_INDEXES.ORGANIZATION_DEPARTMENTS) {
+    router.push(APP_CONSTANTS.ROUTE.PATHS.PAGES.ORGANIZATION_DEPARTMENTS)
   }
 }
 

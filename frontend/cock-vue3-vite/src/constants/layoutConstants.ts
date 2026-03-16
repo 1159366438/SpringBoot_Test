@@ -14,12 +14,15 @@ export const LAYOUT_CONSTANTS = {
   // 菜单项索引
   MENU_INDEXES: {
     DEFAULT_OPENED: ['1'],  // 默认展开的菜单
-    SUB_MENU_SYSTEM: '1',   // 系统子菜单
-    NAVIGATION_TWO: '2',    // 导航项2
-    NAVIGATION_THREE: '3',  // 导航项3
-    NAVIGATION_FOUR: '4',   // 导航项4
-    PUNCH: 'punch',         // 打卡页面
-    RECORD: 'record',       // 记录页面
+    ATTENDANCE: '1',   // 考勤系统子菜单
+    ORGANIZATION: '2',      // 组织管理子菜单
+    NAVIGATION_TWO: '3',    // 导航项2
+    NAVIGATION_THREE: '4',  // 导航项3
+    NAVIGATION_FOUR: '5',   // 导航项4
+    ATTENDANCE_PUNCH: 'punch',         // 打卡页面
+    ATTENDANCE_RECORD: 'record',       // 记录页面
+    ORGANIZATION_CHART: 'organizationChart',    // 组织架构子菜单
+    ORGANIZATION_DEPARTMENTS: 'organizationDepartments',    // 部门管理子菜单
   },
   
   // 导航项文本
