@@ -19,20 +19,20 @@ public class AppConstants {
     }
     
     /**
-     * 打卡相关常量
+     * 考勤相关常量
      */
-    public static class Punch {
-        // 打卡类型
-        /** 上班打卡 */
+    public static class Attendance {
+        // 考勤类型
+        /** 上班考勤 */
         public static final int CHECK_IN_TYPE_ON_WORK = 1;
         
-        /** 下班打卡 */
+        /** 下班考勤 */
         public static final int CHECK_IN_TYPE_OFF_WORK = 2;
         
-        /** 加班打卡 */
+        /** 加班考勤 */
         public static final int CHECK_IN_TYPE_OVERTIME = 3;
         
-        // 打卡状态
+        // 考勤状态
         /** 正常 */
         public static final int CHECK_IN_STATUS_NORMAL = 1;
         
@@ -108,15 +108,15 @@ public class AppConstants {
         public static final int REGISTER_FAILED_CODE = ErrorCodeConstants.User.REGISTER_FAILED_CODE;
         public static final String REGISTER_FAILED_MSG = ErrorCodeConstants.User.REGISTER_FAILED_MSG;
         
-        // 打卡相关错误码
-        public static final int USER_ID_EMPTY_CODE = ErrorCodeConstants.Punch.USER_ID_EMPTY_CODE;
-        public static final String USER_ID_EMPTY_MSG = ErrorCodeConstants.Punch.USER_ID_EMPTY_MSG;
+        // 考勤相关错误码
+        public static final int USER_ID_EMPTY_CODE = ErrorCodeConstants.Attendance.USER_ID_EMPTY_CODE;
+        public static final String USER_ID_EMPTY_MSG = ErrorCodeConstants.Attendance.USER_ID_EMPTY_MSG;
         
-        public static final int PUNCH_FAILED_CODE = ErrorCodeConstants.Punch.PUNCH_FAILED_CODE;
-        public static final String PUNCH_FAILED_MSG = ErrorCodeConstants.Punch.PUNCH_FAILED_MSG;
+        public static final int ATTENDANCE_FAILED_CODE = ErrorCodeConstants.Attendance.ATTENDANCE_FAILED_CODE;
+        public static final String ATTENDANCE_FAILED_MSG = ErrorCodeConstants.Attendance.ATTENDANCE_FAILED_MSG;
         
-        public static final int GET_PUNCH_RECORDS_FAILED_CODE = ErrorCodeConstants.Punch.GET_PUNCH_RECORDS_FAILED_CODE;
-        public static final String GET_PUNCH_RECORDS_FAILED_MSG = ErrorCodeConstants.Punch.GET_PUNCH_RECORDS_FAILED_MSG;
+        public static final int GET_ATTENDANCE_RECORDS_FAILED_CODE = ErrorCodeConstants.Attendance.GET_ATTENDANCE_RECORDS_FAILED_CODE;
+        public static final String GET_ATTENDANCE_RECORDS_FAILED_MSG = ErrorCodeConstants.Attendance.GET_ATTENDANCE_RECORDS_FAILED_MSG;
         
         // 参数校验相关错误码
         public static final int VALIDATION_FAILED_CODE = ErrorCodeConstants.Validation.VALIDATION_FAILED_CODE;
@@ -130,7 +130,7 @@ public class AppConstants {
      * 成功消息相关常量
      */
     public static class Success {
-        public static final String PUNCH_SUCCESS_MSG = "打卡成功";
+        public static final String ATTENDANCE_SUCCESS_MSG = "考勤打卡成功";
         public static final String LOGOUT_SUCCESS_MSG = "登出成功";
         public static final String OPERATION_SUCCESS_MSG = "操作成功";
     }

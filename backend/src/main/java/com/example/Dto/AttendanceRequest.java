@@ -1,14 +1,14 @@
 package com.example.dto;
 
 /**
- * 打卡请求参数类
+ * 考勤请求参数类
  * @author Attendance System Team
  * @since 2026-03-15
  */
-public class PunchRequest {
+public class AttendanceRequest {
     private String username; // 用户名
     private Integer userId; // 用户ID
-    private String punchTime; // 打卡时间（ISO格式）
+    private String attendanceTime; // 考勤时间（ISO格式）
 
     // getter和setter方法
     public String getUsername() {
@@ -27,20 +27,20 @@ public class PunchRequest {
         this.userId = userId;
     }
 
-    public String getPunchTime() {
-        return punchTime;
+    public String getAttendanceTime() {
+        return attendanceTime;
     }
 
-    public void setPunchTime(String punchTime) {
-        this.punchTime = punchTime;
+    public void setAttendanceTime(String attendanceTime) {
+        this.attendanceTime = attendanceTime;
     }
 
     @Override
     public String toString() {
-        return "PunchRequest{" +
+        return "AttendanceRequest{" +
                 "username='" + username + '\'' +
                 ", userId=" + userId +
-                ", punchTime='" + punchTime + '\'' +
+                ", attendanceTime='" + attendanceTime + '\'' +
                 '}';
     }
 }

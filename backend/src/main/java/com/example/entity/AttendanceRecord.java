@@ -4,11 +4,11 @@ import java.util.Date;
 import java.io.Serializable;
 
 /**
- * 打卡记录实体类
+ * 考勤记录实体类
  * @author Attendance System Team
  * @since 2026-03-15
  */
-public class PunchRecord implements Serializable {
+public class AttendanceRecord implements Serializable {
     private static final long serialVersionUID = -42311789699024229L;
 
     private Integer id;
@@ -17,7 +17,7 @@ public class PunchRecord implements Serializable {
 
     private Date checkInTime;
 /**
-     * 1-上班打卡 2-下班打卡 3-加班打卡
+     * 1-上班考勤 2-下班考勤 3-加班考勤
      */
     private Integer checkInType;
 /**

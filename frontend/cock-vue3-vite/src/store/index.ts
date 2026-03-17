@@ -4,4 +4,4 @@
  */
 
 export { useUserStore } from './modules/user'
-export { usePunchStore } from './modules/punch'
+export { useAttendanceStore } from './modules/attendance'

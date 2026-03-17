@@ -261,7 +261,7 @@ src/main/java/com/example/
 - 逻辑删除使用 `is_deleted` 字段（`TINYINT`，默认 0）。
 
 ### 5.2 命名规范
-- **表名**：小写+下划线，单数形式，如 `user`、`punch_record`。
+- **表名**：小写+下划线，单数形式，如 `user`、`attendance_record`。
 - **字段名**：小写+下划线，不使用驼峰，如 `check_in_time`。
 - **主键**：`id`。
 - **外键**：`referenced_table_id`，如 `user_id`。

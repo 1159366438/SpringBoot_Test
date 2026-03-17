@@ -15,9 +15,9 @@ body = """
 {% endif %}\
 
 {% for group, commits in commits | group_by(attribute="group") %}
-    ### {{ group | upper_first }}
+    ### {{ group }}
     {% for commit in commits %}
-        - {% if commit.breaking %}[**BREAKING**] {% endif %}{{ commit.message | upper_first }}\
+        - {% if commit.breaking %}[**BREAKING**] {% endif %}{{ commit.message | trim }}\
     {% endfor %}
 {% endfor %}\n
 """
@@ -33,20 +33,22 @@ filter_unconventional = true
 commit_parsers = [
     { message = "^feat", group = "✨ 新增功能" },
     { message = "^fix", group = "🐛 Bug 修复" },
-    { message = "^doc", group = "📝 文档更新" },
+    { message = "^docs", group = "📝 文档更新" },
     { message = "^perf", group = "⚡ 性能优化" },
     { message = "^refactor", group = "🔧 重构与代码质量" },
     { message = "^style", group = "🎨 代码风格" },
     { message = "^test", group = "🧪 测试" },
     { message = "^chore\\(release\\):", skip = true },
     { message = "^chore", group = "🔨 杂项" },
+    # 默认分组，匹配所有未匹配的提交（可选）
+    # { message = ".*", group = "其他变更" },
 ]
 # protect breaking changes from being skipped due to unmatched commit parser
 protect_breaking_commits = false
 # filter out the commits that are not matched by commit parsers
 filter_commits = false
-# glob pattern for matching git tags
-tag_pattern = "v[0-9]*"
+# glob pattern for matching git tags (支持有或无 v 前缀的版本号)
+tag_pattern = "v?[0-9]*"
 # regex for skipping tags
 skip_tags = "v0.1.0-beta.1"
 # regex for ignoring tags

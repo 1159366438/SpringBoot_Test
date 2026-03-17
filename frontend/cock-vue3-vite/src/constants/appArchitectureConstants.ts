@@ -9,8 +9,8 @@ export const APP_ARCHITECTURE_CONSTANTS = {
     // 用户相关Store
     USER: 'user',
     
-    // 打卡相关Store
-    PUNCH: 'punch',
+    // 考勤相关Store
+    ATTENDANCE: 'attendance',
     
     // 其他业务Store
     OTHER: {

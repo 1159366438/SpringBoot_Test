@@ -1,4 +1,4 @@
-.punch-card {
+.attendance-card {
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -6,36 +6,36 @@
   justify-content: center;
 }
 
-.punch-header {
+.attendance-header {
   margin-bottom: var(--spacing-element-margin);
   text-align: center;
 }
 
-.punch-header h2 {
+.attendance-header h2 {
   font-size: var(--font-size-title);
   color: var(--color-text-dark);
   margin-bottom: 8px;
 }
 
-.punch-header .date {
+.attendance-header .date {
   font-size: var(--font-size-normal);
   color: var(--color-text-gray);
 }
 
-.punch-body {
+.attendance-body {
   width: var(--size-card-width);
 }
 
-.punch-card-item {
+.attendance-card-item {
   text-align: center;
   padding: var(--spacing-element-padding-large);
 }
 
-.punch-status {
+.attendance-status {
   margin-bottom: var(--spacing-element-margin);
 }
 
-.punch-status p {
+.attendance-status p {
   margin-top: 10px;
   font-size: var(--font-size-extra-large);
   color: var(--color-text-dark);

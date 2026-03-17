@@ -16,20 +16,24 @@ export const MENU_CONSTANTS = {
   KEYS: {
     // 主要菜单项
     MAIN: {
-      ATTENDANCE_PUNCH: 'attendancePunch',
-      ATTENDANCE_RECORD: 'attendanceRecord',
+      ATTENDANCE:{
+        ATTENDANCE: 'attendance',
+        PUNCH: 'attendancePunch',
+        RECORD: 'attendanceRecord',
+      },
+      ORGANIZATION: {
+        ORGANIZATION: 'organization',
+        CHART: 'organizationChart',
+        DEPARTMENTS: 'organizationDepartments',
+      },
       SETTINGS: 'settings',
       PROFILE: 'profile',
       HOME: 'home',
       ABOUT: 'about',
       SYSTEM: 'system',
-      ATTENDANCE: 'attendance',
       NAVIGATION_TWO: '2',
       NAVIGATION_THREE: '3',
       NAVIGATION_FOUR: '4',
-      ORGANIZATION: 'organization',
-      ORGANIZATION_CHART: 'organizationChart',
-      ORGANIZATION_DEPARTMENTS: 'organizationDepartments',
       NAVIGATOR_TWO: 'navigatorTwo',
       NAVIGATOR_THREE: 'navigatorThree',
       NAVIGATOR_FOUR: 'navigatorFour',
@@ -37,14 +41,14 @@ export const MENU_CONSTANTS = {
     
     // 页面相关
     PAGES: {
-      PUNCH_CARD: 'punchCard',
+      ATTENDANCE_CARD: 'attendanceCard',
       RECORD_PAGE: 'recordPage',
       SETTINGS_PAGE: 'settingsPage',
     },
     
     // 功能相关
     FEATURES: {
-      PUNCH_IN: 'punchIn',
+      ATTENDANCE_IN: 'attendanceIn',
       VIEW_RECORDS: 'viewRecords',
       UPDATE_PROFILE: 'updateProfile',
     }
@@ -53,7 +57,7 @@ export const MENU_CONSTANTS = {
   // 菜单项文本
   ITEMS: {
     SYSTEM: () => t('menu.system', '员工内网'),
-    ATTENDANCE: () => t('menu.attendance', '考勤'),
+    ATTENDANCE: () => t('menu.attendance', '考勤管理'),
     ATTENDANCE_PUNCH: () => t('menu.attendancePunch', '考勤打卡'),
     ATTENDANCE_RECORD: () => t('menu.attendanceRecord', '考勤记录'),
     NAVIGATION_TWO: () => t('menu.2', '导航二'),

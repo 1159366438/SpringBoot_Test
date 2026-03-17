@@ -70,20 +70,20 @@ public class ErrorCodeConstants {
     }
     
     /**
-     * 打卡相关错误码
+     * 考勤相关错误码
      */
-    public static class Punch {
+    public static class Attendance {
         /** 用户ID不能为空 */
         public static final int USER_ID_EMPTY_CODE = 400;
         public static final String USER_ID_EMPTY_MSG = "用户ID不能为空";
         
-        /** 打卡失败 */
-        public static final int PUNCH_FAILED_CODE = 500;
-        public static final String PUNCH_FAILED_MSG = "打卡失败";
+        /** 考勤打卡失败 */
+        public static final int ATTENDANCE_FAILED_CODE = 500;
+        public static final String ATTENDANCE_FAILED_MSG = "考勤打卡失败";
         
-        /** 获取打卡记录失败 */
-        public static final int GET_PUNCH_RECORDS_FAILED_CODE = 500;
-        public static final String GET_PUNCH_RECORDS_FAILED_MSG = "获取打卡记录失败";
+        /** 获取考勤记录失败 */
+        public static final int GET_ATTENDANCE_RECORDS_FAILED_CODE = 500;
+        public static final String GET_ATTENDANCE_RECORDS_FAILED_MSG = "获取考勤记录失败";
     }
     
     /**

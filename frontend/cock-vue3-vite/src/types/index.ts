@@ -4,5 +4,5 @@
  */
 
 export * from './user'
-export * from './punch'
+export * from './attendance'
 export * from './api'

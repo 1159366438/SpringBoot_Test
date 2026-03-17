@@ -3,7 +3,7 @@
  */
 
 // 打卡记录类型
-export interface PunchRecord {
+export interface AttendanceRecord {
   id?: number        // 主键ID
   userId?: number    // 打卡用户ID
   date?: string      // 打卡日期 (对应后端checkInTime字段)

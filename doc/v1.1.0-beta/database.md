@@ -12,7 +12,7 @@
 
 - [概述](./database/overview.md) - 数据库设计原则、命名规范、字符集与引擎等
 - [用户表](./database/user.md) - 用户信息相关表结构设计
-- [打卡记录表](./database/punch.md) - 打卡记录相关表结构设计
+- [考勤记录表](./database/attendance.md) - 考勤记录相关表结构设计
 - [部门表](./database/department.md) - 部门组织架构相关表结构设计
 - [角色表](./database/role.md) - 用户角色及角色权限关联相关表结构设计
 - [权限表](./database/permission.md) - 系统权限及权限分配相关表结构设计

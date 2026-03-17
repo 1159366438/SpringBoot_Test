@@ -165,7 +165,7 @@ attendance-system/
 │   │   │   ├── dto/                    # 数据传输对象
 │   │   │   ├── entity/                 # 实体类
 │   │   │   ├── service/                 # 业务逻辑层
-│   │   │   └── PunchCardApplication.java # 启动类
+│   │   │   └── AttendanceSystemApplication.java # 启动类
 │   │   └── resources/
 │   │       ├── mapper/                  # MyBatis XML 映射
 │   │       ├── application.yml          # 应用配置

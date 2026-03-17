@@ -5,7 +5,7 @@
 ### 3.1 获取打卡记录（分页）
 获取指定用户的打卡记录（支持分页）。
 
-- **URL**: `/api/punch/record`
+- **URL**: `/api/attendance/record`
 - **请求方式**: `GET`
 - **认证方式**: JWT Token
 - **请求参数**:
@@ -18,7 +18,7 @@
 
 - **请求示例**:
 ```
-GET /api/punch/record?userId=1&page=1&size=15
+GET /api/attendance/record?userId=1&page=1&size=15
 Authorization: Bearer <token>
 ```
 
@@ -49,7 +49,7 @@ Authorization: Bearer <token>
 ### 3.2 上班打卡
 用户打卡接口，记录上下班打卡信息。
 
-- **URL**: `/api/punch/in`
+- **URL**: `/api/attendance/in`
 - **请求方式**: `POST`
 - **认证方式**: JWT Token
 - **请求体**:
@@ -60,7 +60,7 @@ Authorization: Bearer <token>
 
 - **请求示例**:
 ```json
-POST /api/punch/in
+POST /api/attendance/in
 Content-Type: application/json
 Authorization: Bearer <token>
 

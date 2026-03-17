@@ -261,7 +261,7 @@ Content-Type: application/json
 #### 接口说明
 获取指定用户的打卡记录，支持分页查询。
 
-- **请求URL**: `/api/punch/record`
+- **请求URL**: `/api/attendance/record`
 - **请求方法**: `GET`
 - **Content-Type**: `application/x-www-form-urlencoded`（参数拼接在URL上）
 - **认证要求**: 需要登录
@@ -304,7 +304,7 @@ Content-Type: application/json
 
 #### 请求示例
 ```http
-GET /api/punch/record?userId=1&page=1&size=15 HTTP/1.1
+GET /api/attendance/record?userId=1&page=1&size=15 HTTP/1.1
 Host: api.yourdomain.com
 Cookie: JSESSIONID=xxx
 ```
@@ -349,7 +349,7 @@ Cookie: JSESSIONID=xxx
 #### 接口说明
 用户进行上班打卡操作。后端会根据打卡时间自动判断状态（正常/迟到）。
 
-- **请求URL**: `/api/punch/in`
+- **请求URL**: `/api/attendance/in`
 - **请求方法**: `POST`
 - **Content-Type**: `application/json`
 - **认证要求**: 需要登录
@@ -358,14 +358,14 @@ Cookie: JSESSIONID=xxx
 | 参数名 | 类型 | 必填 | 示例 | 描述 |
 |--------|------|------|------|------|
 | `username` | string | 是 | "admin" | 用户名 |
-| `punchTime` | string | 是 | "2024-03-06T08:11:00.000Z" | 打卡时间（UTC） |
+| `attendanceTime` | string | 是 | "2024-03-06T08:11:00.000Z" | 考勤时间（UTC） |
 | `userId` | int | 是 | 1 | 用户ID |
 
 #### 请求体示例
 ```json
 {
   "username": "admin",
-  "punchTime": "2024-03-06T08:11:00.000Z",
+  "attendanceTime": "2024-03-06T08:11:00.000Z",
   "userId": 1
 }
 ```
@@ -379,14 +379,14 @@ Cookie: JSESSIONID=xxx
 
 #### 请求示例
 ```http
-POST /api/punch/in HTTP/1.1
+POST /api/attendance/in HTTP/1.1
 Host: api.yourdomain.com
 Cookie: JSESSIONID=xxx
 Content-Type: application/json
 
 {
   "username": "admin",
-  "punchTime": "2024-03-06T08:11:00.000Z",
+  "attendanceTime": "2024-03-06T08:11:00.000Z",
   "userId": 1
 }
 ```

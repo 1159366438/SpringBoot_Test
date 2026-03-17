@@ -18,9 +18,9 @@
   - [2.1 获取用户信息](#21-获取用户信息)
   - [2.2 用户登录](#22-用户登录)
   - [2.3 用户登出](#23-用户登出)
-- [3. 打卡相关接口](#3-打卡相关接口)
-  - [3.1 获取打卡记录（分页）](#31-获取打卡记录分页)
-  - [3.2 上班打卡](#32-上班打卡)
+- [3. 考勤相关接口](#3-考勤相关接口)
+  - [3.1 获取考勤记录（分页）](#31-获取考勤记录分页)
+  - [3.2 用户考勤打卡](#32-用户考勤打卡)
 - [4. 部门管理相关接口](#4-部门管理相关接口)
   - [4.1 创建部门](#41-创建部门)
   - [4.2 获取部门列表](#42-获取部门列表)
@@ -263,14 +263,14 @@ Content-Type: application/json
 
 ---
 
-## 3. 打卡相关接口
+## 3. 考勤相关接口
 
-### 3.1 获取打卡记录（分页）
+### 3.1 获取考勤记录（分页）
 
 #### 接口说明
-获取指定用户的打卡记录，支持分页查询。
+获取指定用户的考勤记录，支持分页查询。
 
-- **请求URL**: `/api/punch/record`
+- **请求URL**: `/api/attendance/record`
 - **请求方法**: `GET`
 - **Content-Type**: `application/x-www-form-urlencoded`（参数拼接在URL上）
 - **认证要求**: 需要登录
@@ -292,7 +292,7 @@ Content-Type: application/json
 **data 对象结构**：
 | 字段 | 类型 | 必含 | 描述 |
 |------|------|------|------|
-| `records` | array | 是 | 打卡记录列表，每个元素结构见下表 |
+| `records` | array | 是 | 考勤记录列表，每个元素结构见下表 |
 | `total` | int | 是 | 总记录数 |
 | `page` | int | 是 | 当前页码 |
 | `size` | int | 是 | 每页条数 |
@@ -303,17 +303,17 @@ Content-Type: application/json
 |------|------|------|------|------|
 | `id` | int | 是 | 1 | 记录ID |
 | `userId` | int | 是 | 1 | 用户ID |
-| `checkInTime` | string | 是 | "2024-03-06T08:11:00.000Z" | 打卡时间（UTC） |
-| `checkInType` | int | 是 | 1 | 打卡类型：1-上班打卡，2-下班打卡（预留） |
-| `checkInStatus` | int | 是 | 1 | 打卡状态：1-正常，2-迟到，3-早退（预留） |
-| `checkInLocation` | string | 是 | "公司" | 打卡地点 |
+| `checkInTime` | string | 是 | "2024-03-06T08:11:00.000Z" | 考勤时间（UTC） |
+| `checkInType` | int | 是 | 1 | 考勤类型：1-上班考勤，2-下班考勤（预留） |
+| `checkInStatus` | int | 是 | 1 | 考勤状态：1-正常，2-迟到，3-早退（预留） |
+| `checkInLocation` | string | 是 | "公司" | 考勤地点 |
 | `createTime` | string | 是 | "2024-03-06T08:11:00.000Z" | 创建时间 |
 | `updateTime` | string | 是 | "2024-03-06T08:11:00.000Z" | 更新时间 |
 | `isDeleted` | int | 是 | 0 | 删除标识 |
 
 #### 请求示例
 ```http
-GET /api/punch/record?userId=1&page=1&size=15 HTTP/1.1
+GET /api/attendance/record?userId=1&page=1&size=15 HTTP/1.1
 Host: api.yourdomain.com
 Cookie: JSESSIONID=xxx
 ```
@@ -348,17 +348,17 @@ Cookie: JSESSIONID=xxx
 #### 错误码
 | 错误码 | 说明 | 描述 |
 |--------|------|------|
-| 200 | 成功 | 获取打卡记录成功 |
-| 500 | 服务器内部错误 | 获取打卡记录失败 |
+| 200 | 成功 | 获取考勤记录成功 |
+| 500 | 服务器内部错误 | 获取考勤记录失败 |
 
 ---
 
-### 3.2 上班打卡
+### 3.2 用户考勤打卡
 
 #### 接口说明
-用户进行上班打卡操作。后端会根据打卡时间自动判断状态（正常/迟到）。
+用户进行考勤打卡操作。后端会根据考勤时间自动判断状态（正常/迟到）。
 
-- **请求URL**: `/api/punch/in`
+- **请求URL**: `/api/attendance/in`
 - **请求方法**: `POST`
 - **Content-Type**: `application/json`
 - **认证要求**: 需要登录
@@ -366,15 +366,11 @@ Cookie: JSESSIONID=xxx
 #### 请求参数
 | 参数名 | 类型 | 必填 | 示例 | 描述 |
 |--------|------|------|------|------|
-| `username` | string | 是 | "admin" | 用户名 |
-| `punchTime` | string | 是 | "2024-03-06T08:11:00.000Z" | 打卡时间（UTC） |
 | `userId` | int | 是 | 1 | 用户ID |
 
 #### 请求体示例
 ```json
 {
-  "username": "admin",
-  "punchTime": "2024-03-06T08:11:00.000Z",
   "userId": 1
 }
 ```
@@ -383,19 +379,17 @@ Cookie: JSESSIONID=xxx
 | 参数名 | 类型 | 必含 | 示例 | 描述 |
 |--------|------|------|------|------|
 | `code` | int | 是 | 200 | 业务状态码 |
-| `msg` | string | 是 | "打卡成功" | 响应消息 |
+| `msg` | string | 是 | "考勤打卡成功" | 响应消息 |
 | `data` | null | 否 | null | 无数据 |
 
 #### 请求示例
 ```http
-POST /api/punch/in HTTP/1.1
+POST /api/attendance/in HTTP/1.1
 Host: api.yourdomain.com
-Cookie: JSESSIONID=xxx
 Content-Type: application/json
+Cookie: JSESSIONID=xxx
 
 {
-  "username": "admin",
-  "punchTime": "2024-03-06T08:11:00.000Z",
   "userId": 1
 }
 ```
@@ -404,7 +398,7 @@ Content-Type: application/json
 ```json
 {
   "code": 200,
-  "msg": "打卡成功",
+  "msg": "考勤打卡成功",
   "data": null
 }
 ```
@@ -412,10 +406,10 @@ Content-Type: application/json
 #### 错误码
 | 错误码 | 说明 | 描述 |
 |--------|------|------|
-| 200 | 成功 | 打卡成功 |
-| 400 | 请求参数错误 | 用户ID或打卡时间为空 |
+| 200 | 成功 | 考勤打卡成功 |
+| 400 | 请求参数错误 | 用户ID为空 |
 | 404 | 用户不存在 | 指定的 `userId` 不存在 |
-| 500 | 服务器内部错误 | 打卡失败 |
+| 500 | 服务器内部错误 | 考勤打卡失败 |
 
 ---
 

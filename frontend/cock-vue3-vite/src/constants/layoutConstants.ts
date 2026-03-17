@@ -14,15 +14,19 @@ export const LAYOUT_CONSTANTS = {
   // 菜单项索引
   MENU_INDEXES: {
     DEFAULT_OPENED: ['1'],  // 默认展开的菜单
-    ATTENDANCE: '1',   // 考勤系统子菜单
-    ORGANIZATION: '2',      // 组织管理子菜单
     NAVIGATION_TWO: '3',    // 导航项2
     NAVIGATION_THREE: '4',  // 导航项3
     NAVIGATION_FOUR: '5',   // 导航项4
-    ATTENDANCE_PUNCH: 'punch',         // 打卡页面
-    ATTENDANCE_RECORD: 'record',       // 记录页面
-    ORGANIZATION_CHART: 'organizationChart',    // 组织架构子菜单
-    ORGANIZATION_DEPARTMENTS: 'organizationDepartments',    // 部门管理子菜单
+    ATTENDANCE: '1',        // 考勤子菜单
+    ATTENDANCE_SUB: {
+      PUNCH: 'attendancePunch',
+      RECORD: 'attendanceRecord',
+    },
+    ORGANIZATION: '2',      // 组织子菜单
+    ORGANIZATION_SUB: {
+      CHART: 'organizationChart',
+      DEPARTMENTS: 'organizationDepartments',
+    },
   },
   
   // 导航项文本

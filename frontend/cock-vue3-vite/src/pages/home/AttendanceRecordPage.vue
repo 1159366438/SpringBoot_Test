@@ -1,11 +1,11 @@
 <template>
   <div class="record-page">
-    <RecordCard />
+    <AttendanceRecordCard />
   </div>
 </template>
 
 <script setup lang="ts">
-import RecordCard from '../../components/page/RecordCard.vue'
+import AttendanceRecordCard from '../../components/page/AttendanceRecordCard.vue'
 </script>
 
 <style scoped>

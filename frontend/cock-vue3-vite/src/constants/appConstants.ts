@@ -150,12 +150,16 @@ export const APP_CONSTANTS = {
       // 主要页面路由
       PAGES: {
         HOME: '/',
-        PUNCH: '/punch',
-        RECORD: '/record',
+        ATTENDANCE: {
+          PUNCH: '/attendance-punch',
+          RECORD: '/attendance-record',
+        },
         USER: '/user',
         SETTING: '/setting',
-        ORGANIZATION_CHART: '/organizationChart',
-        ORGANIZATION_DEPARTMENTS: '/organizationDepartments',
+        ORGANIZATION: {
+          CHART: '/organizationChart',
+          DEPARTMENTS: '/organizationDepartments',
+        },
       },
       
       // API 路由
@@ -166,9 +170,9 @@ export const APP_CONSTANTS = {
           LOGOUT: '/user/logout',
           REGISTER: '/user/register',
         },
-        PUNCH: {
-          RECORD: '/punch/record',
-          IN: '/punch/in',
+        ATTENDANCE: {
+          RECORD: '/attendance/record',
+          IN: '/attendance/in',
         }
       }
     },
@@ -184,58 +188,63 @@ export const APP_CONSTANTS = {
       // 主要页面
       PAGES: {
         HOME: 'HomePage',
-        PUNCH: 'PunchPage',
-        RECORD: 'RecordPage',
+        ATTENDANCE: {
+          PUNCH: 'AttendancePunchPage',
+          RECORD: 'AttendanceRecordPage',
+        },
         USER: 'UserPage',
         SETTING: 'SettingPage',
-        ORGANIZATION_CHART: 'OrganizationChartPage',
-        ORGANIZATION_DEPARTMENTS: 'OrganizationDepartmentsPage',
+        ORGANIZATION: {
+          CHART: 'OrganizationChartPage',
+          DEPARTMENTS: 'OrganizationDepartmentsPage',
+        },
       },
     },
   },
 
   // 打卡相关常量
-  PUNCH: {
-    // 打卡消息
+  ATTENDANCE: {
+    // 考勤消息
     MESSAGES: {
-      SUCCESS: () => t('messages.punchSuccess', '打卡成功'),
-      FAILED: () => t('messages.punchFailed', '打卡失败！'),
-      ERROR: () => t('messages.punchError', '打卡时发生错误'),
+      SUCCESS: () => t('messages.attendanceSuccess', '考勤打卡成功'),
+      FAILED: () => t('messages.attendanceFailed', '考勤打卡失败！'),
+      ERROR: () => t('messages.attendanceError', '考勤打卡时发生错误'),
       NETWORK_ERROR: () => t('messages.networkError', '网络异常，请稍后重试'),
       INVALID_USER: () => t('messages.invalidUser', '用户信息无效'),
-      // 获取打卡记录相关消息
-      FETCH_RECORDS_SUCCESS: () => t('messages.fetchRecordsSuccess', '获取打卡记录成功'),
-      FETCH_RECORDS_FAILED: () => t('messages.fetchRecordsFailed', '获取打卡记录失败'),
-      FETCH_RECORDS_ERROR: () => t('messages.fetchRecordsError', '获取打卡记录时发生错误'),
-      NO_RECORDS_FOUND: () => t('messages.noRecordsFound', '暂无打卡记录'),
-      RECORDS_LOAD_ERROR: () => t('messages.recordsLoadError', '加载打卡记录出错')
+      // 获取考勤记录相关消息
+      FETCH_RECORDS_SUCCESS: () => t('messages.fetchAttendanceRecordsSuccess', '获取考勤记录成功'),
+      FETCH_RECORDS_FAILED: () => t('messages.fetchAttendanceRecordsFailed', '获取考勤记录失败'),
+      FETCH_RECORDS_ERROR: () => t('messages.fetchAttendanceRecordsError', '获取考勤记录时发生错误'),
+      NO_RECORDS_FOUND: () => t('messages.noAttendanceRecordsFound', '暂无考勤记录'),
+      RECORDS_LOAD_ERROR: () => t('messages.attendanceRecordsLoadError', '加载考勤记录出错')
     },
     
-    // 打卡状态
+    // 考勤状态
     STATUS: {
-      PUNCHED: () => t('punchStatus.punched', '已打卡'),
-      UNPUNCHED: () => t('punchStatus.unpunched', '未打卡'),
-      SUCCESS: () => t('punchStatus.success', '正常'),
-      LATE: () => t('punchStatus.late', '迟到'),
-      ABSENT: () => t('punchStatus.absent', '缺勤')
+      ATTENDED: () => t('attendanceStatus.attended', '已考勤'),
+      NOT_ATTENDED: () => t('attendanceStatus.notAttended', '未考勤'),
+      SUCCESS: () => t('attendanceStatus.success', '正常'),
+      LATE: () => t('attendanceStatus.late', '迟到'),
+      EARLY_LEAVE: () => t('attendanceStatus.earlyLeave', '早退'),
+      ABSENT: () => t('attendanceStatus.absent', '缺勤')
     }
   },
 
-  // 打卡卡片相关常量
-  PUNCH_CARD: {
+  // 考勤卡片相关常量
+  ATTENDANCE_CARD: {
     // 文本内容
     TEXTS: {
-      TODAY: () => t('menu.today', '今日打卡'),
-      PUNCH_NOW: () => t('buttons.punchNow', '立即打卡'),
-      ALREADY_PUNCHED: () => t('buttons.alreadyPunched', '已打卡'),
-      PUNCH_PAGE_NAME: () => t('pageNames.punch', '打卡'),
+      TODAY: () => t('menu.today', '今日考勤'),
+      ATTENDANCE_NOW: () => t('buttons.attendanceNow', '立即考勤'),
+      ALREADY_ATTENDED: () => t('buttons.alreadyAttended', '已考勤'),
+      ATTENDANCE_PAGE_NAME: () => t('pageNames.attendance', '考勤'),
       RECORD_PAGE_NAME: () => t('pageNames.record', '记录'),
     },
 
-    // 打卡状态文本
+    // 考勤状态文本
     STATUS: {
-      PUNCHED: () => t('punchStatus.punched', '今日已打卡'),
-      UNPUNCHED: () => t('punchStatus.unpunched', '今日未打卡'),
+      ATTENDED: () => t('attendanceStatus.attended', '今日已考勤'),
+      NOT_ATTENDED: () => t('attendanceStatus.notAttended', '今日未考勤'),
     },
 
     // 消息文本
@@ -244,12 +253,12 @@ export const APP_CONSTANTS = {
     }
   },
 
-  // 打卡存储常量
-  PUNCH_STORE: {
+  // 考勤存储常量
+  ATTENDANCE_STORE: {
     // 初始状态值
     INITIAL_STATE: {
-      IS_PUNCHED: false,
-      PUNCHED_TIME: '',
+      IS_ATTENDED: false,
+      ATTENDED_TIME: '',
       LOADING: false,
       ERROR: '',
     },
@@ -275,6 +284,8 @@ export const APP_CONSTANTS = {
     }
   },
 
+
+
   // 记录卡片相关常量
   RECORD_CARD: {
     // 表格列标题
@@ -296,8 +307,8 @@ export const APP_CONSTANTS = {
 
   // 页面名称常量
   PAGE_NAMES: {
-    PUNCH: () => t('pageTitles.punch', '打卡页面'),
-    RECORD: () => t('pageTitles.record', '打卡记录'),
+    ATTENDANCE_PUNCH: () => t('pageTitles.attendancePunch', '考勤打卡'),
+    ATTENDANCE_RECORD: () => t('pageTitles.attendanceRecord', '考勤记录'),
     USER: () => t('pageTitles.user', '用户中心'),
     SETTING: () => t('pageTitles.setting', '设置'),
     ORGANIZATION: () => t('pageTitles.organization', '组织管理'),
@@ -309,8 +320,14 @@ export const APP_CONSTANTS = {
     I18N_FALLBACKS: {
       // 菜单项
       MENU: {
-        TODAY: '今日打卡',
-        RECORD: '打卡记录',
+        ATTENDANCE: {
+          PUNCH: '考勤打卡',
+          RECORD: '考勤记录',
+        },
+        ORGANIZATION: {
+          CHART: '组织架构',
+          DEPARTMENTS: '部门管理',
+        },
         SETTINGS: '设置',
         PROFILE: '个人资料',
         HOME: '首页',

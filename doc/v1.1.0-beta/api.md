@@ -12,7 +12,7 @@
 
 - [概述](./api/overview.md) - API基本规范、公共响应结构、认证方式等
 - [用户接口](./api/user.md) - 用户注册、登录、获取用户信息等接口
-- [打卡接口](./api/punch.md) - 打卡记录、打卡操作等接口
+- [打卡接口](./api/attendance.md) - 打卡记录、打卡操作等接口
 - [部门接口](./api/department.md) - 部门管理相关接口
 - [角色接口](./api/role.md) - 权限管理相关接口
 
@@ -27,8 +27,8 @@
 - `POST /api/user/register` - 用户注册
 
 ### 打卡相关接口
-- `GET /api/punch/record` - 获取打卡记录（分页）
-- `POST /api/punch/in` - 上班打卡
+- `GET /api/attendance/record` - 获取打卡记录（分页）
+- `POST /api/attendance/in` - 上班打卡
 
 ### 部门管理接口
 - `GET /api/department/list` - 获取部门列表

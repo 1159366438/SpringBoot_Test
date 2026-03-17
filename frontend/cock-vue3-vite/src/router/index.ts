@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import PunchPage from '../pages/home/PunchPage.vue'
-import RecordPage from '../pages/home/RecordPage.vue'
+import AttendancePunchPage from '../pages/home/AttendancePunchPage.vue'
+import AttendanceRecordPage from '../pages/home/AttendanceRecordPage.vue'
 import LoginPage from '../views/Login.vue'
 import RegisterPage from '../views/Register.vue'
 import OrganizationChartPage from '../views/OrganizationChart.vue'
@@ -22,29 +22,29 @@ const routes = [
   },
   {
     path: APP_CONSTANTS.ROUTE.PATHS.PAGES.HOME,
-    redirect: APP_CONSTANTS.ROUTE.PATHS.PAGES.PUNCH
+    redirect: APP_CONSTANTS.ROUTE.PATHS.PAGES.ATTENDANCE.PUNCH
   },
   {
-    path: APP_CONSTANTS.ROUTE.PATHS.PAGES.PUNCH,
-    name: APP_CONSTANTS.ROUTE.NAMES.PAGES.PUNCH,
-    component: PunchPage,
-    meta: { title: APP_CONSTANTS.PAGE_NAMES.PUNCH() }
+    path: APP_CONSTANTS.ROUTE.PATHS.PAGES.ATTENDANCE.PUNCH,
+    name: APP_CONSTANTS.ROUTE.NAMES.PAGES.ATTENDANCE.PUNCH,
+    component: AttendancePunchPage,
+    meta: { title: APP_CONSTANTS.PAGE_NAMES.ATTENDANCE_PUNCH() }
   },
   {
-    path: APP_CONSTANTS.ROUTE.PATHS.PAGES.RECORD,
-    name: APP_CONSTANTS.ROUTE.NAMES.PAGES.RECORD,
-    component: RecordPage,
-    meta: { title: APP_CONSTANTS.PAGE_NAMES.RECORD() }
+    path: APP_CONSTANTS.ROUTE.PATHS.PAGES.ATTENDANCE.RECORD,
+    name: APP_CONSTANTS.ROUTE.NAMES.PAGES.ATTENDANCE.RECORD,
+    component: AttendanceRecordPage,
+    meta: { title: APP_CONSTANTS.PAGE_NAMES.ATTENDANCE_RECORD() }
   },
   {
-    path: APP_CONSTANTS.ROUTE.PATHS.PAGES.ORGANIZATION_CHART,
-    name: APP_CONSTANTS.ROUTE.NAMES.PAGES.ORGANIZATION_CHART,
+    path: APP_CONSTANTS.ROUTE.PATHS.PAGES.ORGANIZATION.CHART,
+    name: APP_CONSTANTS.ROUTE.NAMES.PAGES.ORGANIZATION.CHART,
     component: OrganizationChartPage,
     meta: { title: APP_CONSTANTS.PAGE_NAMES.ORGANIZATION_CHART() }
   },
   {
-    path: APP_CONSTANTS.ROUTE.PATHS.PAGES.ORGANIZATION_DEPARTMENTS,
-    name: APP_CONSTANTS.ROUTE.NAMES.PAGES.ORGANIZATION_DEPARTMENTS,
+    path: APP_CONSTANTS.ROUTE.PATHS.PAGES.ORGANIZATION.DEPARTMENTS,
+    name: APP_CONSTANTS.ROUTE.NAMES.PAGES.ORGANIZATION.DEPARTMENTS,
     component: OrganizationDepartmentsPage,
     meta: { title: APP_CONSTANTS.PAGE_NAMES.ORGANIZATION_DEPARTMENTS() }
   }

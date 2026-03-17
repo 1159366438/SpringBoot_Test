@@ -1,7 +1,7 @@
 <template>
   <div class="record-card">
     <el-table 
-      :data="tableData" 
+      :data="attendanceRecords" 
       stripe 
       style="width: 100%" 
       v-loading="loading"
@@ -48,14 +48,14 @@
 
 <script setup lang="ts">
 import { onMounted, computed, onErrorCaptured, ref } from 'vue'
-import { usePunchStore, useUserStore } from '../../store'
+import { useAttendanceStore, useUserStore } from '../../store'
 import { formatDate } from '../../utils'
-import type { PunchRecord } from '../../types'
+import type { AttendanceRecord } from '../../types'
 import { ElMessage } from 'element-plus'
 import { APP_CONSTANTS, TABLE_CONSTANTS } from '../../constants'
 
 // Store
-const punchStore = usePunchStore()
+const attendanceStore = useAttendanceStore()
 const userStore = useUserStore()
 
 // Labels
@@ -66,17 +66,17 @@ const locationLabel = APP_CONSTANTS.RECORD_CARD.COLUMN_HEADERS.LOCATION()
 const noRecordsText = APP_CONSTANTS.RECORD_CARD.MESSAGES.NO_RECORDS()
 
 // Computed properties
-const tableData = computed<PunchRecord[]>(() => punchStore.pagination.records || [])
-const loading = computed(() => punchStore.loading)
-const totalRecords = computed(() => punchStore.pagination.total)
+const attendanceRecords = computed<AttendanceRecord[]>(() => attendanceStore.attendanceRecords || [])
+const loading = computed(() => attendanceStore.isLoading)
+const totalRecords = computed(() => attendanceStore.pagination.total)
 const currentPage = computed({
-  get: () => punchStore.pagination.page,
+  get: () => attendanceStore.currentPage,
   set: (_value) => {
     // 不直接修改，而是在change事件中处理
   }
 })
 const pageSize = computed({
-  get: () => punchStore.pagination.size,
+  get: () => attendanceStore.pageSize,
   set: (_value) => {
     // 不直接修改，而是在change事件中处理
   }
@@ -113,7 +113,7 @@ const formatUserId = (userId: number | undefined): string => {
   return `${APP_CONSTANTS.RECORD_CARD.MESSAGES.USER_PREFIX()}${userId}`
 }
 
-const locationFormatter = (_row: PunchRecord, _column: unknown, cellValue: string): string => {
+const locationFormatter = (_row: AttendanceRecord, _column: unknown, cellValue: string): string => {
   return cellValue || APP_CONSTANTS.RECORD_CARD.MESSAGES.UNKNOWN_LOCATION()
 }
 
@@ -121,36 +121,36 @@ const locationFormatter = (_row: PunchRecord, _column: unknown, cellValue: strin
 const handleSizeChange = async (size: number) => {
   pageSizeRef.value = size
   currentPageRef.value = 1  // 改变每页大小时回到第一页
-  await loadPunchRecords(currentPageRef.value, pageSizeRef.value)
+  await loadAttendanceRecords(currentPageRef.value, pageSizeRef.value)
 }
 
 // 页码改变事件
 const handleCurrentChange = async (page: number) => {
   currentPageRef.value = page
-  await loadPunchRecords(currentPageRef.value, pageSizeRef.value)
+  await loadAttendanceRecords(currentPageRef.value, pageSizeRef.value)
 }
 
-// 加载打卡记录
-const loadPunchRecords = async (page: number, size: number) => {
+// 加载考勤记录
+const loadAttendanceRecords = async (page: number, size: number) => {
   try {
     // 确保用户信息已加载
     if (!userStore.userInfo.name) {
       await userStore.fetchUserInfo()
     }
     const userId = userStore.userInfo.userId || 1
-    const success = await punchStore.fetchPunchRecords(userId, page, size)
+    const success = await attendanceStore.fetchAttendanceRecords(userId, page, size)
     if (success) {
-      ElMessage.success(APP_CONSTANTS.PUNCH.MESSAGES.FETCH_RECORDS_SUCCESS())
+      ElMessage.success(APP_CONSTANTS.ATTENDANCE.MESSAGES.FETCH_RECORDS_SUCCESS())
       console.log('获取打卡记录成功:', {
-        total: punchStore.pagination.total,
-        currentPage: punchStore.pagination.page,
-        recordsCount: punchStore.pagination.records.length
+        total: attendanceStore.pagination.total,
+        currentPage: attendanceStore.pagination.page,
+        recordsCount: attendanceStore.pagination.records.length
       })
     }
     // 其他错误已在axios拦截器中统一处理
   } catch (err) {
-    console.error('获取打卡记录失败:', err)
-    ElMessage.error(APP_CONSTANTS.PUNCH.MESSAGES.FETCH_RECORDS_ERROR())
+    console.error('获取考勤记录失败:', err)
+    ElMessage.error(APP_CONSTANTS.ATTENDANCE.MESSAGES.FETCH_RECORDS_ERROR())
     return false
   }
 }
@@ -161,7 +161,7 @@ onMounted(async () => {
   if (!userStore.userInfo.name) {
     await userStore.fetchUserInfo()
   }
-  await loadPunchRecords(currentPageRef.value, pageSizeRef.value)
+  await loadAttendanceRecords(currentPageRef.value, pageSizeRef.value)
 })
 
 // Error handling
