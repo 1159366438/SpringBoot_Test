@@ -29,27 +29,6 @@ export const userApi = {
   },
   
   /**
-   * 用户注册
-   * @param username - 用户名
-   * @param password - 密码
-   * @param confirmPassword - 确认密码
-   * @param age - 年龄（可选）
-   * @param avatar - 头像（可选）
-   * @param gender - 性别（可选）
-   * @returns Promise - 注册结果响应
-   */
-  register: (username: string, password: string, confirmPassword: string, age?: number, avatar?: string, gender?: number) => {
-    return service.post(APP_CONSTANTS.ROUTE.PATHS.API.USER.REGISTER, {
-      username,        // 用户名
-      password,        // 密码
-      confirmPassword, // 确认密码
-      age,             // 年龄
-      avatar,          // 头像
-      gender           // 性别
-    })
-  },
-  
-  /**
    * 为用户分配部门
    * @param userId - 用户ID
    * @param departmentId - 部门ID

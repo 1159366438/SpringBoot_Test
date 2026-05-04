@@ -54,39 +54,32 @@ export const useAttendanceStore = defineStore(STORE_NAMES.ATTENDANCE, {
         console.log('考勤接口响应:', res)
         
         // 检查响应状态
-         if (res.data && res.data.code !== STATUS_CODES.BUSINESS.SUCCESS) {
-           // 根据后端返回码进行精确错误处理
-           switch (res.data.code) {
+         if (res.code !== STATUS_CODES.BUSINESS.SUCCESS) {
+           switch (res.code) {
              case STATUS_CODES.BUSINESS.PARAM_ERROR:
              case 400:
-               // 参数错误
                throw new Error(MESSAGE_CONSTANTS.USER_INFO.PARAM_ERROR())
                
              case STATUS_CODES.BUSINESS.AUTH_FAILED:
              case 401:
-               // 认证失败
                localStorage.removeItem(APP_CONSTANTS.USER.STORAGE_KEYS.IS_LOGGED_IN)
                localStorage.removeItem(APP_CONSTANTS.USER.STORAGE_KEYS.AUTH_TOKEN)
                throw new Error(MESSAGE_CONSTANTS.USER_INFO.AUTH_FAILED())
                
              case STATUS_CODES.BUSINESS.PERMISSION_DENIED:
              case 403:
-               // 权限不足
                throw new Error(APP_CONSTANTS.ATTENDANCE.MESSAGES.FAILED())
                
              case STATUS_CODES.BUSINESS.RESOURCE_NOT_FOUND:
              case 404:
-               // 用户不存在
                throw new Error(APP_CONSTANTS.ATTENDANCE.MESSAGES.INVALID_USER())
                
              case STATUS_CODES.BUSINESS.SERVER_ERROR:
              case 500:
-               // 服务器错误
                throw new Error(MESSAGE_CONSTANTS.COMMON.SERVER_ERROR())
                
              default:
-               // 其他业务错误
-               throw new Error(res.data.msg || res.data.message || APP_CONSTANTS.ATTENDANCE.MESSAGES.ERROR())
+               throw new Error(res.msg || APP_CONSTANTS.ATTENDANCE.MESSAGES.ERROR())
            }
          }
         
@@ -116,45 +109,37 @@ export const useAttendanceStore = defineStore(STORE_NAMES.ATTENDANCE, {
         console.log('获取考勤记录响应:', res)
         
         // 检查响应状态
-         if (res.data && res.data.code !== STATUS_CODES.BUSINESS.SUCCESS) {
-           // 根据后端返回码进行精确错误处理
-           switch (res.data.code) {
+         if (res.code !== STATUS_CODES.BUSINESS.SUCCESS) {
+           switch (res.code) {
              case STATUS_CODES.BUSINESS.PARAM_ERROR:
              case 400:
-               // 参数错误
                throw new Error(MESSAGE_CONSTANTS.USER_INFO.PARAM_ERROR())
                
              case STATUS_CODES.BUSINESS.AUTH_FAILED:
              case 401:
-               // 认证失败
                localStorage.removeItem(APP_CONSTANTS.USER.STORAGE_KEYS.IS_LOGGED_IN)
                localStorage.removeItem(APP_CONSTANTS.USER.STORAGE_KEYS.AUTH_TOKEN)
                throw new Error(MESSAGE_CONSTANTS.USER_INFO.AUTH_FAILED())
                
              case STATUS_CODES.BUSINESS.PERMISSION_DENIED:
              case 403:
-               // 权限不足
                throw new Error(APP_CONSTANTS.ATTENDANCE.MESSAGES.FETCH_RECORDS_ERROR())
                
              case STATUS_CODES.BUSINESS.RESOURCE_NOT_FOUND:
              case 404:
-               // 用户不存在
                throw new Error(APP_CONSTANTS.ATTENDANCE.MESSAGES.INVALID_USER())
                
              case STATUS_CODES.BUSINESS.SERVER_ERROR:
              case 500:
-               // 服务器错误
                throw new Error(MESSAGE_CONSTANTS.COMMON.SERVER_ERROR())
                
              default:
-               // 其他业务错误
-               throw new Error(res.data.msg || res.data.message || APP_CONSTANTS.ATTENDANCE.MESSAGES.FETCH_RECORDS_ERROR())
+               throw new Error(res.msg || APP_CONSTANTS.ATTENDANCE.MESSAGES.FETCH_RECORDS_ERROR())
            }
          }
         
-        // 更新分页数据 - 后端返回的数据结构在res.data.data中
-        if (res.data && res.data.data) {
-          const responseData = res.data.data;
+        if (res.data) {
+          const responseData = res.data;
           this.pagination = {
             records: responseData.records || [],
             total: responseData.total || APP_CONSTANTS.ATTENDANCE_STORE.FALLBACK_VALUES.TOTAL,

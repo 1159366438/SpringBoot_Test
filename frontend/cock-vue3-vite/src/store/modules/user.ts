@@ -61,35 +61,29 @@ export const useUserStore = defineStore(STORE_NAMES.USER, {
         }
         
         // 检查响应状态
-        if (res.data && res.data.code !== STATUS_CODES.BUSINESS.SUCCESS) {
-          // 根据后端返回码进行精确错误处理
-          switch (res.data.code) {
+        if (res.code !== STATUS_CODES.BUSINESS.SUCCESS) {
+          switch (res.code) {
             case STATUS_CODES.BUSINESS.RESOURCE_NOT_FOUND:
             case 404:
-              // 用户不存在
               throw new Error(MESSAGE_CONSTANTS.USER_INFO.FETCH_ERROR())
               
             case STATUS_CODES.BUSINESS.AUTH_FAILED:
             case 401:
-              // 认证失败，可能token过期
               localStorage.removeItem(APP_CONSTANTS.USER.STORAGE_KEYS.IS_LOGGED_IN)
               localStorage.removeItem(APP_CONSTANTS.USER.STORAGE_KEYS.AUTH_TOKEN)
               throw new Error(MESSAGE_CONSTANTS.USER_INFO.AUTH_FAILED())
               
             case STATUS_CODES.BUSINESS.SERVER_ERROR:
             case 500:
-              // 服务器错误
               throw new Error(MESSAGE_CONSTANTS.COMMON.SERVER_ERROR())
               
             default:
-              // 其他业务错误
-              throw new Error(res.data.msg || res.data.message || MESSAGE_CONSTANTS.USER_INFO.FETCH_FAILED())
+              throw new Error(res.msg || MESSAGE_CONSTANTS.USER_INFO.FETCH_FAILED())
           }
         }
         
-        if (res.data && res.data.data) {
-          // 后端返回的数据包装在data.data中
-          const userData = res.data.data;
+        if (res.data) {
+          const userData = res.data;
           
           // 更新用户信息
           this.userInfo.username = userData.username || this.userInfo.username
@@ -121,33 +115,27 @@ export const useUserStore = defineStore(STORE_NAMES.USER, {
         }
         
         // 检查响应状态
-        if (res.data && res.data.code !== STATUS_CODES.BUSINESS.SUCCESS) {
-          // 根据后端返回码进行精确错误处理
-          switch (res.data.code) {
+        if (res.code !== STATUS_CODES.BUSINESS.SUCCESS) {
+          switch (res.code) {
             case STATUS_CODES.BUSINESS.AUTH_FAILED:
             case 401:
-              // 认证失败，用户名或密码错误
               throw new Error(MESSAGE_CONSTANTS.USER_INFO.INVALID_CREDENTIALS())
               
             case STATUS_CODES.BUSINESS.PARAM_ERROR:
             case 400:
-              // 参数错误
               throw new Error(MESSAGE_CONSTANTS.USER_INFO.PARAM_ERROR())
               
             case STATUS_CODES.BUSINESS.SERVER_ERROR:
             case 500:
-              // 服务器错误
               throw new Error(MESSAGE_CONSTANTS.COMMON.SERVER_ERROR())
               
             default:
-              // 其他业务错误
-              throw new Error(res.data.msg || res.data.message || MESSAGE_CONSTANTS.USER_INFO.LOGIN_FAILED())
+              throw new Error(res.msg || MESSAGE_CONSTANTS.USER_INFO.LOGIN_FAILED())
           }
         }
         
-        // 如果登录成功，更新用户信息
-        if (res.data && res.data.data) {
-          const responseData = res.data.data;
+        if (res.data) {
+          const responseData = res.data;
           // 从响应中提取JWT Token并保存到localStorage
           if (responseData.token) {
             localStorage.setItem(APP_CONSTANTS.USER.STORAGE_KEYS.AUTH_TOKEN, responseData.token);
@@ -194,7 +182,7 @@ export const useUserStore = defineStore(STORE_NAMES.USER, {
       this.error = ''
       try {
         // 调用真实的注册API
-        const res = await userApi.register(username, password, confirmPassword, age, avatar, gender)
+        const res = await authApi.register(username, password, confirmPassword, age, avatar, gender)
         
         // 检查响应是否存在
         if (!res) {
@@ -202,33 +190,29 @@ export const useUserStore = defineStore(STORE_NAMES.USER, {
         }
         
         // 检查响应状态
-        if (res.data && res.data.code !== STATUS_CODES.BUSINESS.SUCCESS) {
-          // 根据后端返回码进行精确错误处理
-          switch (res.data.code) {
+        console.log(res)
+        console.log(res.code)
+        if (res.code !== STATUS_CODES.BUSINESS.SUCCESS) {
+          switch (res.code) {
             case STATUS_CODES.BUSINESS.PARAM_ERROR:
             case 400:
-              // 参数错误
               throw new Error(MESSAGE_CONSTANTS.USER_INFO.PARAM_ERROR())
               
             case STATUS_CODES.BUSINESS.VALIDATION_ERROR:
             case 422:
-              // 验证错误
               throw new Error(MESSAGE_CONSTANTS.USER_INFO.VALIDATION_ERROR())
               
             case STATUS_CODES.BUSINESS.SERVER_ERROR:
             case 500:
-              // 服务器错误
               throw new Error(MESSAGE_CONSTANTS.COMMON.SERVER_ERROR())
               
             default:
-              // 其他业务错误
-              throw new Error(res.data.msg || res.data.message || MESSAGE_CONSTANTS.USER_INFO.REGISTER_FAILED())
+              throw new Error(res.msg || MESSAGE_CONSTANTS.USER_INFO.REGISTER_FAILED())
           }
         }
         
-        // 如果注册成功，可以自动登录用户
-        if (res.data && res.data.data) {
-          const userData = res.data.data
+        if (res.data) {
+          const userData = res.data
           this.userInfo.username = userData.username
           this.userInfo.userId = userData.id
           this.userInfo.avatar = userData.avatar || ''
@@ -265,17 +249,14 @@ export const useUserStore = defineStore(STORE_NAMES.USER, {
         }
         
         // 检查响应状态
-        if (res.data && res.data.code !== STATUS_CODES.BUSINESS.SUCCESS) {
-          // 根据后端返回码进行精确错误处理
-          switch (res.data.code) {
+        if (res.code !== STATUS_CODES.BUSINESS.SUCCESS) {
+          switch (res.code) {
             case STATUS_CODES.BUSINESS.SERVER_ERROR:
             case 500:
-              // 服务器错误
               throw new Error(MESSAGE_CONSTANTS.COMMON.SERVER_ERROR())
               
             default:
-              // 其他业务错误
-              throw new Error(res.data.msg || res.data.message || MESSAGE_CONSTANTS.USER_INFO.LOGOUT_FAILED())
+              throw new Error(res.msg || MESSAGE_CONSTANTS.USER_INFO.LOGOUT_FAILED())
           }
         }
         
@@ -326,33 +307,27 @@ export const useUserStore = defineStore(STORE_NAMES.USER, {
         }
         
         // 检查响应状态
-        if (res.data && res.data.code !== STATUS_CODES.BUSINESS.SUCCESS) {
-          // 根据后端返回码进行精确错误处理
-          switch (res.data.code) {
+        if (res.code !== STATUS_CODES.BUSINESS.SUCCESS) {
+          switch (res.code) {
             case STATUS_CODES.BUSINESS.PARAM_ERROR:
             case 400:
-              // 参数错误
               throw new Error(MESSAGE_CONSTANTS.USER_INFO.PARAM_ERROR())
               
             case STATUS_CODES.BUSINESS.VALIDATION_ERROR:
             case 422:
-              // 验证错误
               throw new Error(MESSAGE_CONSTANTS.USER_INFO.VALIDATION_ERROR())
               
             case STATUS_CODES.BUSINESS.SERVER_ERROR:
             case 500:
-              // 服务器错误
               throw new Error(MESSAGE_CONSTANTS.COMMON.SERVER_ERROR())
               
             default:
-              // 其他业务错误
-              throw new Error(res.data.msg || res.data.message || MESSAGE_CONSTANTS.USER_INFO.UPDATE_FAILED())
+              throw new Error(res.msg || MESSAGE_CONSTANTS.USER_INFO.UPDATE_FAILED())
           }
         }
         
-        // 如果更新成功，同步到本地状态
-        if (res.data && res.data.data) {
-          const updatedUserData = res.data.data
+        if (res.data) {
+          const updatedUserData = res.data
           this.userInfo.username = updatedUserData.username
           this.userInfo.avatar = updatedUserData.avatar || ''
           this.userInfo.age = updatedUserData.age

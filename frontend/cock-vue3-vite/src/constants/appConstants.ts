@@ -228,7 +228,7 @@ export const APP_CONSTANTS = {
           INFO: '/users/me',
           LOGIN: '/auth/login',
           LOGOUT: '/auth/logout',
-          REGISTER: '/users',
+          REGISTER: '/auth/register',
           ASSIGN_TO_DEPARTMENT: '/users/department',
           UNASSIGNED: '/users/unassigned',
         },

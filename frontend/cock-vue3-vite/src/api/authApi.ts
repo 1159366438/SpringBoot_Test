@@ -35,7 +35,7 @@ export const authApi = {
     }
     
     // 如果没有token，直接返回成功状态
-    return Promise.resolve({ data: { code: 200, msg: 'Logged out successfully', data: {} } })
+    return Promise.resolve({ code: 200, msg: 'Logged out successfully', data: {} })
   },
 
   /**
@@ -49,13 +49,13 @@ export const authApi = {
    * @returns Promise - 注册结果响应
    */
   register: (username: string, password: string, confirmPassword: string, age?: number, avatar?: string, gender?: number) => {
-    return service.post('/api/auth/register', {
-      username,        // 用户名
-      password,        // 密码
-      confirmPassword, // 确认密码
-      age,             // 年龄
-      avatar,          // 头像
-      gender           // 性别
+    return service.post(APP_CONSTANTS.ROUTE.PATHS.API.USER.REGISTER, {
+      username,
+      password,
+      confirmPassword,
+      age,
+      avatar,
+      gender
     })
   }
 }

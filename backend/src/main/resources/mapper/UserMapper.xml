@@ -46,9 +46,9 @@
     </select>
 
     <!-- 新增 -->
-    <insert id="insert" parameterType="com.example.entity.User">
-        insert into user (id, username, password, age, avatar, gender, department_id, email, phone, position, is_deleted)
-        values (#{id}, #{username}, #{password}, #{age}, #{avatar}, #{gender}, #{departmentId}, #{email}, #{phone}, #{position}, #{isDeleted})
+    <insert id="insert" parameterType="com.example.entity.User" useGeneratedKeys="true" keyProperty="id">
+        insert into user (username, password, age, avatar, gender, department_id, email, phone, position, is_deleted)
+        values (#{username}, #{password}, #{age}, #{avatar}, #{gender}, #{departmentId}, #{email}, #{phone}, #{position}, #{isDeleted})
     </insert>
 
     <!-- 修改 -->

@@ -20,6 +20,7 @@ import com.example.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -154,9 +155,15 @@ public class UserServiceImpl implements UserService {
         
         // 设置创建时间
         newUser.setCreateTime(new java.util.Date());
-        
-        // 插入数据库
-        int result = userDao.insert(newUser);
+        newUser.setIsDeleted(0);
+
+        int result;
+        try {
+            result = userDao.insert(newUser);
+        } catch (DuplicateKeyException e) {
+            logger.warn("用户名已存在（并发冲突）: {}", registerRequest.getUsername());
+            return ResponseResult.error(AppConstants.Error.USER_EXISTS_CODE, AppConstants.Error.USER_EXISTS_MSG);
+        }
         
         if (result > 0) {
             // 使用UserDTO返回新创建的用户信息（不包含密码等敏感信息）
