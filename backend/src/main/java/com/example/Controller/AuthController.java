@@ -151,17 +151,14 @@ public class AuthController {
             @ApiResponse(responseCode = "500", description = "注册失败")
     })
     @PostMapping("/register")
-    public ResponseResult<User> register(@RequestBody RegisterRequest registerRequest) {
+    public ResponseResult<UserDTO> register(@RequestBody RegisterRequest registerRequest) {
         logger.info("用户注册请求: username={}", registerRequest.getUsername());
 
         try {
-            // 调用注册业务逻辑
             ResponseResult<UserDTO> dtoResult = userService.register(registerRequest);
             if (dtoResult.getCode() == 200 && dtoResult.getData() != null) {
-                // 将UserDTO转换为User实体
-                User user = convertUserDtoToEntity(dtoResult.getData());
-                logger.info("用户注册成功: userId={}", user.getId());
-                return ResponseResult.success(user);
+                logger.info("用户注册成功: userId={}", dtoResult.getData().getId());
+                return dtoResult;
             } else {
                 logger.warn("用户注册失败: {}", dtoResult.getMsg());
                 return ResponseResult.error(dtoResult.getCode(), dtoResult.getMsg());
@@ -170,26 +167,5 @@ public class AuthController {
             logger.error("用户注册异常", e);
             return ResponseResult.error(AppConstants.Error.SERVER_ERROR_CODE, AppConstants.Error.SERVER_ERROR_MSG);
         }
-    }
-
-    /**
-     * 将UserDTO转换为User实体
-     * 
-     * @param userDTO 用户DTO对象
-     * @return User实体对象
-     */
-    private User convertUserDtoToEntity(UserDTO userDTO) {
-        User user = new User();
-        user.setId(userDTO.getId());
-        user.setUsername(userDTO.getUsername());
-        user.setAge(userDTO.getAge());
-        user.setGender(userDTO.getGender());
-        user.setAvatar(userDTO.getAvatar());
-        user.setEmail(userDTO.getEmail());
-        user.setPhone(userDTO.getPhone());
-        user.setCreateTime(userDTO.getCreateTime());
-        user.setUpdateTime(userDTO.getUpdateTime());
-        user.setIsDeleted(userDTO.getIsDeleted());
-        return user;
     }
 }

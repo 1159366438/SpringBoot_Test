@@ -1,5 +1,6 @@
 package com.example.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -27,6 +28,7 @@ public class User implements Serializable {
     /**
      * 密码
      */
+    @JsonIgnore
     private String password;
 
     /**

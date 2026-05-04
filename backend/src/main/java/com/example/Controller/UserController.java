@@ -186,14 +186,16 @@ public class UserController {
             @ApiResponse(responseCode = "500", description = "获取失败")
     })
     @GetMapping("/users/unassigned")
-    public ResponseResult<List<User>> getUnassignedUsers() {
+    public ResponseResult<List<UserDTO>> getUnassignedUsers() {
         logger.info("获取未分配部门的用户列表请求");
         
         try {
-            // 调用获取未分配部门用户业务逻辑
             List<User> users = userService.getUnassignedUsers();
+            List<UserDTO> userDTOs = users.stream()
+                .map(UserDTO::new)
+                .collect(java.util.stream.Collectors.toList());
             
-            return ResponseResult.success(users);
+            return ResponseResult.success(userDTOs);
         } catch (Exception e) {
             logger.error("获取未分配部门的用户列表失败", e);
             return ResponseResult.error(AppConstants.Error.SERVER_ERROR_CODE, AppConstants.Error.SERVER_ERROR_MSG);

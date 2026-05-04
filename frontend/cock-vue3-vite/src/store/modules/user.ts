@@ -339,7 +339,7 @@ export const useUserStore = defineStore(STORE_NAMES.USER, {
         return {
           success: APP_CONSTANTS.BOOLEAN.TRUE,
           message: MESSAGE_CONSTANTS.USER_INFO.UPDATE_SUCCESS(),
-          data: res.data?.data || userData
+          data: res.data || userData
         }
       } catch (error: any) {
         this.error = error.message || MESSAGE_CONSTANTS.USER_INFO.UPDATE_FAILED()
