@@ -66,78 +66,42 @@ axiosInstance.interceptors.response.use(
   error => {
     console.error('网络错误:', error)
     
-    // 根据错误类型提供不同提示
-    let errorMessage = API_ERROR_MESSAGES.NETWORK.REQUEST_FAILED()
-    if (error.response) {
-      // 服务器响应了错误状态码
-      const status = error.response.status
-      // 根据状态码选择相应的错误消息
-      switch(status) {
-        case 400:
-          errorMessage = API_ERROR_MESSAGES.HTTP.BAD_REQUEST()
-          break
-        case 401:
-          errorMessage = API_ERROR_MESSAGES.HTTP.UNAUTHORIZED()
-          break
-        case 403:
-          errorMessage = API_ERROR_MESSAGES.HTTP.FORBIDDEN()
-          break
-        case 404:
-          errorMessage = API_ERROR_MESSAGES.HTTP.NOT_FOUND()
-          break
-        case 500:
-          errorMessage = API_ERROR_MESSAGES.HTTP.SERVER_ERROR()
-          break
-        default:
-          errorMessage = API_ERROR_MESSAGES.HTTP.DEFAULT_ERROR(status)
-      }
-      
-      // 特殊处理401未授权错误
-      if (status === 401) {
-        // 清除本地认证信息
-        localStorage.removeItem('token')
-        localStorage.removeItem(APP_CONSTANTS.USER.STORAGE_KEYS.AUTH_TOKEN)
-        localStorage.removeItem(APP_CONSTANTS.USER.STORAGE_KEYS.IS_LOGGED_IN)
-        
-        // 显示错误消息
-        ElMessage.error('认证失效，请重新登录')
-        
-        // 跳转到登录页
-        window.location.href = '/login'
-        
-        return Promise.reject(error)
-      }
-      
-      // 特殊处理403禁止访问错误
-      if (status === 403) {
-        // 检查是否是因为认证信息过期或无效导致的403
-        const token = localStorage.getItem(APP_CONSTANTS.USER.STORAGE_KEYS.AUTH_TOKEN)
-        if (!token) {
-          // 如果没有token却收到403，可能是认证状态不一致
-          localStorage.removeItem(APP_CONSTANTS.USER.STORAGE_KEYS.IS_LOGGED_IN)
-          
-          // 显示错误消息
-          ElMessage.error('访问被拒绝，请重新登录')
-          
-          // 跳转到登录页
-          window.location.href = '/login'
-        } else {
-          // 如果有token但仍然收到403，可能是权限不足
-          ElMessage.error('您没有权限访问该资源')
-        }
-        
-        return Promise.reject(error)
-      }
-    } else if (error.request) {
-      // 请求已发出但没有收到响应
-      errorMessage = API_ERROR_MESSAGES.NETWORK.SERVER_UNAVAILABLE()
+    const apiResponse: ApiResponse = error.response?.data || {
+      code: STATUS_CODES.BUSINESS.SERVER_ERROR,
+      msg: API_ERROR_MESSAGES.NETWORK.REQUEST_FAILED(),
+      data: null
     }
     
-    // 显示错误消息
-    ElMessage.error(errorMessage)
+    const status = error.response?.status
     
-    // 返回错误以便调用方处理
-    return Promise.reject(error)
+    if (status === 401) {
+      localStorage.removeItem('token')
+      localStorage.removeItem(APP_CONSTANTS.USER.STORAGE_KEYS.AUTH_TOKEN)
+      localStorage.removeItem(APP_CONSTANTS.USER.STORAGE_KEYS.IS_LOGGED_IN)
+      ElMessage.error('认证失效，请重新登录')
+      window.location.href = '/login'
+      return Promise.reject(apiResponse)
+    }
+    
+    if (status === 403) {
+      const token = localStorage.getItem(APP_CONSTANTS.USER.STORAGE_KEYS.AUTH_TOKEN)
+      if (!token) {
+        localStorage.removeItem(APP_CONSTANTS.USER.STORAGE_KEYS.IS_LOGGED_IN)
+        ElMessage.error('访问被拒绝，请重新登录')
+        window.location.href = '/login'
+      } else {
+        ElMessage.error('您没有权限访问该资源')
+      }
+      return Promise.reject(apiResponse)
+    }
+    
+    if (!error.response && error.request) {
+      ElMessage.error(API_ERROR_MESSAGES.NETWORK.SERVER_UNAVAILABLE())
+    } else {
+      ElMessage.error(apiResponse.msg || API_ERROR_MESSAGES.NETWORK.REQUEST_FAILED())
+    }
+    
+    return Promise.reject(apiResponse)
   }
 )
 

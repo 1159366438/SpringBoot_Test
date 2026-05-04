@@ -12,7 +12,10 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
+import jakarta.annotation.PostConstruct;
 import java.nio.charset.StandardCharsets;
+import java.security.SecureRandom;
+import java.util.Base64;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -36,11 +39,22 @@ public class JwtRedisUtil {
     // Token过期时间（秒）- 24小时
     private static final long EXPIRATION_TIME = 86400;
 
-    @Value("${jwt.secret:ZXhhbXBsZV9zZWNyZXRfZm9yX2F0dGVuZGFuY2Vfc3lzdGVtX2NoYW5nZV90aGlzX2ltbWVkaWF0ZWx5}")
+    @Value("${jwt.secret:}")
     private String secret;
 
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
+
+    @PostConstruct
+    public void init() {
+        if (secret == null || secret.isBlank()) {
+            SecureRandom random = new SecureRandom();
+            byte[] keyBytes = new byte[64];
+            random.nextBytes(keyBytes);
+            secret = Base64.getEncoder().encodeToString(keyBytes);
+            logger.warn("JWT Secret 未配置，已自动生成随机密钥。生产环境请通过 JWT_SECRET 环境变量配置固定密钥。");
+        }
+    }
 
     /**
      * 生成JWT Token并存储到Redis
