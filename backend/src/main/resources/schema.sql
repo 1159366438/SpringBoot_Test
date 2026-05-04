@@ -106,12 +106,14 @@ INSERT IGNORE INTO `department` (`name`, `description`, `parent_id`, `manager_id
 CREATE TABLE IF NOT EXISTS `role` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '角色ID，主键',
   `name` VARCHAR(50) NOT NULL COMMENT '角色名称',
+  `code` VARCHAR(50) NOT NULL COMMENT '角色编码，如ADMIN、USER',
   `description` TEXT DEFAULT NULL COMMENT '角色描述',
   `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `is_deleted` TINYINT NOT NULL DEFAULT 0 COMMENT '逻辑删除标识，0-未删除，1-已删除',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `uk_name` (`name`)
+  UNIQUE KEY `uk_name` (`name`),
+  UNIQUE KEY `uk_code` (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='角色表';
 
 -- 用户角色关联表
@@ -130,11 +132,11 @@ CREATE TABLE IF NOT EXISTS `user_role` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='用户角色关联表';
 
 -- 插入测试角色数据
-INSERT IGNORE INTO `role` (`name`, `description`) VALUES
-('管理员', '拥有系统最高权限'),
-('普通用户', '基本的打卡和查看权限'),
-('部门主管', '管理本部门员工考勤'),
-('HR', '人事管理权限');
+INSERT IGNORE INTO `role` (`name`, `code`, `description`) VALUES
+('管理员', 'ADMIN', '拥有系统最高权限'),
+('普通用户', 'USER', '基本的打卡和查看权限'),
+('部门主管', 'MANAGER', '管理本部门员工考勤'),
+('HR', 'HR', '人事管理权限');
 
 -- 插入测试用户角色关联数据
 INSERT IGNORE INTO `user_role` (`user_id`, `role_id`) VALUES
@@ -186,7 +188,8 @@ INSERT IGNORE INTO `permission` (`name`, `code`, `description`, `parent_id`, `le
 ('用户删除', 'user:delete', '删除用户权限', 1, 2),
 ('部门管理', 'department:*', '部门管理模块', 0, 1),
 ('部门创建', 'department:create', '创建部门权限', 6, 2),
-('部门查看', 'department:read', '查看部门权限', 6, 2);
+('部门查看', 'department:read', '查看部门权限', 6, 2),
+('超级管理员', '1', '系统最高权限，拥有所有功能访问权限', 0, 1);
 
 -- 插入测试角色权限关联数据
 INSERT IGNORE INTO `role_permission` (`role_id`, `permission_id`) VALUES
@@ -197,7 +200,8 @@ INSERT IGNORE INTO `role_permission` (`role_id`, `permission_id`) VALUES
 (1, 5), -- 管理员拥有用户删除权限
 (1, 6), -- 管理员拥有部门管理权限
 (1, 7), -- 管理员拥有部门创建权限
-(1, 8); -- 管理员拥有部门查看权限
+(1, 8), -- 管理员拥有部门查看权限
+(1, 9); -- 管理员拥有超级管理员权限
 
 -- 重新启用外键检查
 SET FOREIGN_KEY_CHECKS = 1;

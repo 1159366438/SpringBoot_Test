@@ -39,5 +39,13 @@ export const userApi = {
       userId,
       departmentId
     })
+  },
+
+  getUserRoles: () => {
+    return service.get(APP_CONSTANTS.ROUTE.PATHS.API.USER.ROLES)
+  },
+
+  getUserRolesByUserId: (userId: number) => {
+    return service.get(APP_CONSTANTS.ROUTE.PATHS.API.ROLE.USER_ROLES, { params: { userId } })
   }
 }

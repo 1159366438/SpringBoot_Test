@@ -23,12 +23,11 @@ export const useUserStore = defineStore(STORE_NAMES.USER, {
       gender: undefined                            // 性别
     } as UserInfo,
     loading: APP_CONSTANTS.BOOLEAN.FALSE,          // 加载状态
-    error: ''                                      // 错误信息
+    error: '',                                     // 错误信息
+    isAdmin: APP_CONSTANTS.BOOLEAN.FALSE           // 是否管理员
   }),
   
-  // 定义计算属性
   getters: {
-    // 检查用户是否已登录
     isLoggedIn: (state) => !!state.userInfo.username
   },
   
@@ -119,7 +118,7 @@ export const useUserStore = defineStore(STORE_NAMES.USER, {
           switch (res.code) {
             case STATUS_CODES.BUSINESS.AUTH_FAILED:
             case 401:
-              throw new Error(MESSAGE_CONSTANTS.USER_INFO.INVALID_CREDENTIALS())
+              throw new Error(res.msg || MESSAGE_CONSTANTS.USER_INFO.INVALID_CREDENTIALS())
               
             case STATUS_CODES.BUSINESS.PARAM_ERROR:
             case 400:
@@ -153,6 +152,8 @@ export const useUserStore = defineStore(STORE_NAMES.USER, {
           this.userInfo.username = username;
           this.userInfo.userId = undefined;
         }
+
+        await this.fetchUserRoles()
         
         return {
           success: APP_CONSTANTS.BOOLEAN.TRUE,
@@ -176,7 +177,25 @@ export const useUserStore = defineStore(STORE_NAMES.USER, {
         this.loading = APP_CONSTANTS.BOOLEAN.FALSE
       }
     },
-    
+
+    async fetchUserRoles() {
+      try {
+        const userId = this.userInfo.userId
+        if (!userId) {
+          this.isAdmin = APP_CONSTANTS.BOOLEAN.FALSE
+          return
+        }
+        const res = await userApi.getUserRolesByUserId(userId)
+        if (res && res.code === STATUS_CODES.BUSINESS.SUCCESS && res.data) {
+          const roles = res.data
+          this.isAdmin = roles.some((role: any) => role.code === 'ADMIN')
+        }
+      } catch (error) {
+        console.error('获取用户角色失败:', error)
+        this.isAdmin = APP_CONSTANTS.BOOLEAN.FALSE
+      }
+    },
+
     async register(username: string, password: string, confirmPassword: string, age?: number, avatar?: string, gender?: number) {
       this.loading = APP_CONSTANTS.BOOLEAN.TRUE
       this.error = ''

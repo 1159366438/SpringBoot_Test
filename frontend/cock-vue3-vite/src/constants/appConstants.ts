@@ -226,6 +226,7 @@ export const APP_CONSTANTS = {
       API: {
         USER: {
           INFO: '/users/me',
+          ROLES: '/users/me/roles',
           LOGIN: '/auth/login',
           LOGOUT: '/auth/logout',
           REGISTER: '/auth/register',
@@ -234,6 +235,9 @@ export const APP_CONSTANTS = {
         },
         ATTENDANCE: {
           RECORDS: '/attendance/records',
+        },
+        ROLE: {
+          USER_ROLES: '/role/user-roles',
         },
         DEPARTMENT: {
           LIST: '/departments',

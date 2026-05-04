@@ -165,8 +165,9 @@ const handleLogin = async () => {
       const redirectPath = router.currentRoute.value.query.redirect as string
       // 跳转到指定页面或首页
       router.push({ path: redirectPath || APP_CONSTANTS.ROUTE.PATHS.PAGES.HOME })
+    } else {
+      ElMessage.error(result.message || MESSAGE_CONSTANTS.USER_INFO.LOGIN_FAILED())
     }
-    // 其他错误已在axios拦截器中统一处理
   } catch (error) {
     console.error('Login error:', error)
     ElMessage.error(APP_CONSTANTS.LOGIN.VALIDATION_MESSAGES.VALIDATION_FAILED())

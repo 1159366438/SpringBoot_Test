@@ -28,7 +28,7 @@
             <span>{{ getMenuText(MENU_KEYS.MAIN.ATTENDANCE.RECORD) }}</span>
           </el-menu-item>
         </el-sub-menu>
-        <el-sub-menu :index="LAYOUT_CONSTANTS.MENU_INDEXES.ORGANIZATION">
+        <el-sub-menu v-if="userStore.isAdmin" :index="LAYOUT_CONSTANTS.MENU_INDEXES.ORGANIZATION">
           <template #title>
             <el-icon class="menu-icon"><IconMenu /></el-icon>
             <span >{{ getMenuText(MENU_KEYS.MAIN.ORGANIZATION.ORGANIZATION) }}</span>

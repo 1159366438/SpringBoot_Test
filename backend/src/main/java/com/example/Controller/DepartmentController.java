@@ -16,13 +16,16 @@ import com.example.dto.UpdateDepartmentRequest;
 import com.example.dto.UserDTO;
 import com.example.entity.Department;
 import com.example.service.DepartmentService;
+import com.example.service.PermissionService;
 import com.example.constants.AppConstants;
 import com.example.entity.User;
+import com.example.util.JwtRedisUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +52,32 @@ public class DepartmentController {
 
     @Autowired
     private DepartmentService departmentService;
+
+    @Autowired
+    private PermissionService permissionService;
+
+    @Autowired
+    private JwtRedisUtil jwtRedisUtil;
+
+    @Autowired
+    private HttpServletRequest request;
+
+    private Integer getCurrentUserId() {
+        String authHeader = request.getHeader("Authorization");
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            String token = authHeader.substring(7);
+            return jwtRedisUtil.getUserIdFromToken(token);
+        }
+        return null;
+    }
+
+    private boolean requireAdmin() {
+        Integer userId = getCurrentUserId();
+        if (userId == null || !permissionService.isAdmin(userId)) {
+            return false;
+        }
+        return true;
+    }
 
     /**
      * 获取部门列表（分页）
@@ -129,6 +158,10 @@ public class DepartmentController {
     public ResponseResult<Department> createDepartment(@RequestBody @Validated CreateDepartmentRequest request) {
         logger.info("创建部门请求: name={}", request.getName());
 
+        if (!requireAdmin()) {
+            return ResponseResult.error(403, "权限不足，仅管理员可操作");
+        }
+
         try {
             // 验证请求参数
             if (request.getName() == null || request.getName().trim().isEmpty()) {
@@ -168,8 +201,11 @@ public class DepartmentController {
             @RequestBody @Validated UpdateDepartmentRequest request) {
         logger.info("更新部门请求: id={}, name={}", id, request.getName());
 
+        if (!requireAdmin()) {
+            return ResponseResult.error(403, "权限不足，仅管理员可操作");
+        }
+
         try {
-            // 设置ID，确保更新的是正确的部门
             request.setId(id);
 
             // 验证请求参数
@@ -209,8 +245,11 @@ public class DepartmentController {
     public ResponseResult<String> deleteDepartment(@Parameter(description = "部门ID") @PathVariable Integer id) {
         logger.info("删除部门请求: id={}", id);
 
+        if (!requireAdmin()) {
+            return ResponseResult.error(403, "权限不足，仅管理员可操作");
+        }
+
         try {
-            // 调用服务层删除部门
             Boolean result = departmentService.deleteDepartment(id);
             if (!result) {
                 return ResponseResult.error(AppConstants.Department.DEPARTMENT_NOT_FOUND_CODE, AppConstants.Department.DEPARTMENT_NOT_FOUND_MSG);

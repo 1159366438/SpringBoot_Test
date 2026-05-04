@@ -12,7 +12,9 @@ package com.example.controller;
 import com.example.common.ResponseResult;
 import com.example.constants.AppConstants;
 import com.example.dto.UserDTO;
+import com.example.entity.Role;
 import com.example.entity.User;
+import com.example.service.PermissionService;
 import com.example.service.UserService;
 import com.example.util.JwtRedisUtil;
 import io.swagger.v3.oas.annotations.Operation;
@@ -55,6 +57,9 @@ public class UserController {
     
     @Autowired
     private JwtRedisUtil jwtRedisUtil;
+
+    @Autowired
+    private PermissionService permissionService;
     
     /**
      * 获取用户信息接口
@@ -200,5 +205,55 @@ public class UserController {
             logger.error("获取未分配部门的用户列表失败", e);
             return ResponseResult.error(AppConstants.Error.SERVER_ERROR_CODE, AppConstants.Error.SERVER_ERROR_MSG);
         }
+    }
+
+    @Operation(summary = "获取当前用户角色", description = "获取当前登录用户的角色列表")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "获取成功"),
+            @ApiResponse(responseCode = "401", description = "未登录")
+    })
+    @GetMapping("/users/me/roles")
+    public ResponseResult<List<Role>> getCurrentUserRoles() {
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated() || "anonymousUser".equals(authentication.getName())) {
+            return ResponseResult.error(401, "未授权访问");
+        }
+
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+        String authHeader = request.getHeader("Authorization");
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            String token = authHeader.substring(7);
+            Integer userId = jwtRedisUtil.getUserIdFromToken(token);
+            if (userId != null) {
+                List<Role> roles = permissionService.getUserRoles(userId);
+                return ResponseResult.success(roles);
+            }
+        }
+        return ResponseResult.error(401, "无法获取用户信息");
+    }
+
+    @Operation(summary = "检查是否为管理员", description = "检查当前登录用户是否拥有超级管理员权限")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "检查成功"),
+            @ApiResponse(responseCode = "401", description = "未登录")
+    })
+    @GetMapping("/users/me/is-admin")
+    public ResponseResult<Boolean> isAdmin() {
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated() || "anonymousUser".equals(authentication.getName())) {
+            return ResponseResult.error(401, "未授权访问");
+        }
+
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+        String authHeader = request.getHeader("Authorization");
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            String token = authHeader.substring(7);
+            Integer userId = jwtRedisUtil.getUserIdFromToken(token);
+            if (userId != null) {
+                boolean admin = permissionService.isAdmin(userId);
+                return ResponseResult.success(admin);
+            }
+        }
+        return ResponseResult.error(401, "无法获取用户信息");
     }
 }
