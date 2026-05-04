@@ -206,9 +206,8 @@ const loadEmployees = async (deptId: number) => {
   try {
     const response = await departmentApi.getDepartmentEmployees(deptId)
     // 根据API响应结构处理数据
-    if (response && response.data && response.data.code === 200) {
-      // 对于员工列表，response.data.data就是用户数组
-      const employeesData = response.data.data || [];
+    if (response && response.code === 200) {
+      const employeesData = response.data || [];
       // 转换用户数据为员工表格所需的格式
       employeeList.value = Array.isArray(employeesData) ? employeesData.map((user: any) => ({
         id: user.id,
@@ -293,8 +292,8 @@ const loadUnassignedEmployees = async () => {
   loadingUnassigned.value = true
   try {
     const response = await departmentApi.getUnassignedEmployees()
-    if (response && response.data && response.data.code === 200) {
-      unassignedEmployees.value = Array.isArray(response.data.data) ? response.data.data.map((user: any) => ({
+    if (response && response.code === 200) {
+      unassignedEmployees.value = Array.isArray(response.data) ? response.data.map((user: any) => ({
         id: user.id,
         username: user.username,
         email: user.email || '',
@@ -342,14 +341,13 @@ const addEmployee = async () => {
   
   try {
     const response = await userApi.assignUserToDepartment(selectedUnassignedEmployee.value, currentDeptId.value)
-    if (response && response.data && response.data.code === 200) {
+    if (response && response.code === 200) {
       ElMessage.success(APP_CONSTANTS.ORGANIZATION_CHART.MESSAGES.EMPLOYEE_ADD_SUCCESS())
       addEmployeeDialogVisible.value = false
       selectedUnassignedEmployee.value = null
-      // 刷新员工列表
       refreshEmployees()
     } else {
-      ElMessage.error(response.data?.msg || APP_CONSTANTS.ORGANIZATION_CHART.MESSAGES.EMPLOYEE_ADD_FAILED())
+      ElMessage.error(response?.msg || APP_CONSTANTS.ORGANIZATION_CHART.MESSAGES.EMPLOYEE_ADD_FAILED())
     }
   } catch (error: any) {
     console.error(APP_CONSTANTS.ORGANIZATION_CHART.MESSAGES.FETCH_UNASSIGNED_FAILED(), ':', error)

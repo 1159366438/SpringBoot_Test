@@ -49,8 +49,8 @@ export const useDepartmentStore = defineStore(STORE_NAMES.DEPARTMENT, {
         const res = await departmentApi.getDepartments(params)
         
         // 检查响应状态
-        if (res.data && res.data.code !== STATUS_CODES.BUSINESS.SUCCESS) {
-          switch (res.data.code) {
+        if (res.code !== STATUS_CODES.BUSINESS.SUCCESS) {
+          switch (res.code) {
             case STATUS_CODES.BUSINESS.PARAM_ERROR:
             case 400:
               throw new Error(MESSAGE_CONSTANTS.DEPARTMENT.PARAM_ERROR())
@@ -66,12 +66,12 @@ export const useDepartmentStore = defineStore(STORE_NAMES.DEPARTMENT, {
               throw new Error(MESSAGE_CONSTANTS.COMMON.SERVER_ERROR())
               
             default:
-              throw new Error(res.data.msg || res.data.message || MESSAGE_CONSTANTS.DEPARTMENT.FETCH_LIST_ERROR())
+              throw new Error(res.msg || MESSAGE_CONSTANTS.DEPARTMENT.FETCH_LIST_ERROR())
           }
         }
         
-        if (res.data && res.data.data) {
-          this.departments = res.data.data.records || []
+        if (res.data) {
+          this.departments = res.data.records || []
         }
         
         return APP_CONSTANTS.BOOLEAN.TRUE
@@ -91,8 +91,8 @@ export const useDepartmentStore = defineStore(STORE_NAMES.DEPARTMENT, {
         const res = await departmentApi.getDepartmentById(id)
         
         // 检查响应状态
-        if (res.data && res.data.code !== STATUS_CODES.BUSINESS.SUCCESS) {
-          switch (res.data.code) {
+        if (res.code !== STATUS_CODES.BUSINESS.SUCCESS) {
+          switch (res.code) {
             case STATUS_CODES.BUSINESS.RESOURCE_NOT_FOUND:
             case 404:
               throw new Error(MESSAGE_CONSTANTS.DEPARTMENT.NOT_FOUND())
@@ -108,12 +108,12 @@ export const useDepartmentStore = defineStore(STORE_NAMES.DEPARTMENT, {
               throw new Error(MESSAGE_CONSTANTS.COMMON.SERVER_ERROR())
               
             default:
-              throw new Error(res.data.msg || res.data.message || MESSAGE_CONSTANTS.DEPARTMENT.FETCH_DETAIL_ERROR())
+              throw new Error(res.msg || MESSAGE_CONSTANTS.DEPARTMENT.FETCH_DETAIL_ERROR())
           }
         }
         
-        if (res.data && res.data.data) {
-          this.selectedDepartment = res.data.data
+        if (res.data) {
+          this.selectedDepartment = res.data
         }
         
         return APP_CONSTANTS.BOOLEAN.TRUE
@@ -133,8 +133,8 @@ export const useDepartmentStore = defineStore(STORE_NAMES.DEPARTMENT, {
         const res = await departmentApi.createDepartment(data)
         
         // 检查响应状态
-        if (res.data && res.data.code !== STATUS_CODES.BUSINESS.SUCCESS) {
-          switch (res.data.code) {
+        if (res.code !== STATUS_CODES.BUSINESS.SUCCESS) {
+          switch (res.code) {
             case STATUS_CODES.BUSINESS.PARAM_ERROR:
             case 400:
               throw new Error(MESSAGE_CONSTANTS.DEPARTMENT.PARAM_ERROR())
@@ -150,13 +150,12 @@ export const useDepartmentStore = defineStore(STORE_NAMES.DEPARTMENT, {
               throw new Error(MESSAGE_CONSTANTS.COMMON.SERVER_ERROR())
               
             default:
-              throw new Error(res.data.msg || res.data.message || MESSAGE_CONSTANTS.DEPARTMENT.CREATE_ERROR())
+              throw new Error(res.msg || MESSAGE_CONSTANTS.DEPARTMENT.CREATE_ERROR())
           }
         }
         
-        if (res.data && res.data.data) {
-          // 添加新创建的部门到列表
-          this.departments.push(res.data.data)
+        if (res.data) {
+          this.departments.push(res.data)
         }
         
         return APP_CONSTANTS.BOOLEAN.TRUE
@@ -176,8 +175,8 @@ export const useDepartmentStore = defineStore(STORE_NAMES.DEPARTMENT, {
         const res = await departmentApi.updateDepartment(id, data)
         
         // 检查响应状态
-        if (res.data && res.data.code !== STATUS_CODES.BUSINESS.SUCCESS) {
-          switch (res.data.code) {
+        if (res.code !== STATUS_CODES.BUSINESS.SUCCESS) {
+          switch (res.code) {
             case STATUS_CODES.BUSINESS.PARAM_ERROR:
             case 400:
               throw new Error(MESSAGE_CONSTANTS.DEPARTMENT.PARAM_ERROR())
@@ -197,20 +196,18 @@ export const useDepartmentStore = defineStore(STORE_NAMES.DEPARTMENT, {
               throw new Error(MESSAGE_CONSTANTS.COMMON.SERVER_ERROR())
               
             default:
-              throw new Error(res.data.msg || res.data.message || MESSAGE_CONSTANTS.DEPARTMENT.UPDATE_ERROR())
+              throw new Error(res.msg || MESSAGE_CONSTANTS.DEPARTMENT.UPDATE_ERROR())
           }
         }
         
-        if (res.data && res.data.data) {
-          // 更新部门列表中的相应部门
+        if (res.data) {
           const index = this.departments.findIndex(dept => dept.id === id)
           if (index !== -1) {
-            this.departments[index] = res.data.data
+            this.departments[index] = res.data
           }
           
-          // 如果当前选中的部门被更新，也要更新选中的部门
           if (this.selectedDepartment && this.selectedDepartment.id === id) {
-            this.selectedDepartment = res.data.data
+            this.selectedDepartment = res.data
           }
         }
         
@@ -231,8 +228,8 @@ export const useDepartmentStore = defineStore(STORE_NAMES.DEPARTMENT, {
         const res = await departmentApi.deleteDepartment(id)
         
         // 检查响应状态
-        if (res.data && res.data.code !== STATUS_CODES.BUSINESS.SUCCESS) {
-          switch (res.data.code) {
+        if (res.code !== STATUS_CODES.BUSINESS.SUCCESS) {
+          switch (res.code) {
             case STATUS_CODES.BUSINESS.RESOURCE_NOT_FOUND:
             case 404:
               throw new Error(MESSAGE_CONSTANTS.DEPARTMENT.NOT_FOUND())
@@ -248,7 +245,7 @@ export const useDepartmentStore = defineStore(STORE_NAMES.DEPARTMENT, {
               throw new Error(MESSAGE_CONSTANTS.COMMON.SERVER_ERROR())
               
             default:
-              throw new Error(res.data.msg || res.data.message || MESSAGE_CONSTANTS.DEPARTMENT.DELETE_ERROR())
+              throw new Error(res.msg || MESSAGE_CONSTANTS.DEPARTMENT.DELETE_ERROR())
           }
         }
         
@@ -277,8 +274,8 @@ export const useDepartmentStore = defineStore(STORE_NAMES.DEPARTMENT, {
         const res = await departmentApi.getDepartmentEmployees(departmentId)
         
         // 检查响应状态
-        if (res.data && res.data.code !== STATUS_CODES.BUSINESS.SUCCESS) {
-          switch (res.data.code) {
+        if (res.code !== STATUS_CODES.BUSINESS.SUCCESS) {
+          switch (res.code) {
             case STATUS_CODES.BUSINESS.RESOURCE_NOT_FOUND:
             case 404:
               throw new Error(MESSAGE_CONSTANTS.DEPARTMENT.NOT_FOUND())
@@ -294,12 +291,12 @@ export const useDepartmentStore = defineStore(STORE_NAMES.DEPARTMENT, {
               throw new Error(MESSAGE_CONSTANTS.COMMON.SERVER_ERROR())
               
             default:
-              throw new Error(res.data.msg || res.data.message || MESSAGE_CONSTANTS.DEPARTMENT.FETCH_EMPLOYEES_ERROR())
+              throw new Error(res.msg || MESSAGE_CONSTANTS.DEPARTMENT.FETCH_EMPLOYEES_ERROR())
           }
         }
         
-        if (res.data && res.data.data) {
-          this.employees = res.data.data
+        if (res.data) {
+          this.employees = res.data
         }
         
         return APP_CONSTANTS.BOOLEAN.TRUE
@@ -319,8 +316,8 @@ export const useDepartmentStore = defineStore(STORE_NAMES.DEPARTMENT, {
         const res = await departmentApi.getChildDepartments(parentId)
         
         // 检查响应状态
-        if (res.data && res.data.code !== STATUS_CODES.BUSINESS.SUCCESS) {
-          switch (res.data.code) {
+        if (res.code !== STATUS_CODES.BUSINESS.SUCCESS) {
+          switch (res.code) {
             case STATUS_CODES.BUSINESS.AUTH_FAILED:
             case 401:
               localStorage.removeItem(APP_CONSTANTS.USER.STORAGE_KEYS.IS_LOGGED_IN)
@@ -332,12 +329,12 @@ export const useDepartmentStore = defineStore(STORE_NAMES.DEPARTMENT, {
               throw new Error(MESSAGE_CONSTANTS.COMMON.SERVER_ERROR())
               
             default:
-              throw new Error(res.data.msg || res.data.message || MESSAGE_CONSTANTS.DEPARTMENT.FETCH_CHILDREN_ERROR())
+              throw new Error(res.msg || MESSAGE_CONSTANTS.DEPARTMENT.FETCH_CHILDREN_ERROR())
           }
         }
         
-        if (res.data && res.data.data) {
-          return res.data.data // 返回子部门列表，用于树形结构加载
+        if (res.data) {
+          return res.data
         }
         
         return []
@@ -357,8 +354,8 @@ export const useDepartmentStore = defineStore(STORE_NAMES.DEPARTMENT, {
         const res = await departmentApi.getChildDepartments(parentId)
         
         // 检查响应状态
-        if (res.data && res.data.code !== STATUS_CODES.BUSINESS.SUCCESS) {
-          switch (res.data.code) {
+        if (res.code !== STATUS_CODES.BUSINESS.SUCCESS) {
+          switch (res.code) {
             case STATUS_CODES.BUSINESS.AUTH_FAILED:
             case 401:
               localStorage.removeItem(APP_CONSTANTS.USER.STORAGE_KEYS.IS_LOGGED_IN)
@@ -370,16 +367,15 @@ export const useDepartmentStore = defineStore(STORE_NAMES.DEPARTMENT, {
               throw new Error(MESSAGE_CONSTANTS.COMMON.SERVER_ERROR())
               
             default:
-              throw new Error(res.data.msg || res.data.message || MESSAGE_CONSTANTS.DEPARTMENT.FETCH_CHILDREN_ERROR())
+              throw new Error(res.msg || MESSAGE_CONSTANTS.DEPARTMENT.FETCH_CHILDREN_ERROR())
           }
         }
         
-        if (res.data && res.data.data) {
+        if (res.data) {
           if (parentId === null) {
-            // 如果是加载根节点，更新部门树
-            this.departmentTree = res.data.data
+            this.departmentTree = res.data
           }
-          return res.data.data
+          return res.data
         }
         
         return []
